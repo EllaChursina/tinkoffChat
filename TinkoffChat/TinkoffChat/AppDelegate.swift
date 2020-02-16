@@ -15,33 +15,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        print("Application moved from <not running> to <inactive>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <not running> to <inactive>: \(#function)")
         return true
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("Application in the <inactive> state: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application in the <inactive> state: \(#function)")
         return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        print("Application moved from <active> to <inactive>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <active> to <inactive>:  \(#function)")
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        print("Application moved from <inactive> to <active>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <inactive> to <active>: \(#function)")
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        print("Application moved from <inactive> to <background>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <inactive> to <background>:  \(#function)")
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        print("Application moved from <background> to <inactive>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <background> to <inactive>:  \(#function)")
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        print("Application moved from <background> to <not running>: " + #function)
+        Logger.log(tag: .AppDelegate, message: "Application moved from <background> to <not running>:  \(#function)")
+        
     }
 
 
