@@ -3,6 +3,7 @@
 #Ignore .xccheckout and .xcscmblueprint files:
 *.xccheckou
 *.xcscmblueprint
+*.DS_Store
 
 #Ignore directories build, DerivedData, xcuserdata:
 build/
