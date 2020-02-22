@@ -54,22 +54,25 @@
                                     <constraint firstAttribute="width" constant="80" id="fSA-tJ-tTg"/>
                                 </constraints>
                                 <state key="normal" image="slr-camera-2"/>
+                                <connections>
+                                    <action selector="actionSetProfileImageButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QWF-Sc-0Bz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="5Pr-wD-5La" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="3yR-Bm-OTK"/>
+                            <constraint firstItem="5xw-MO-OWj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="52t-jm-cd6"/>
                             <constraint firstItem="5xw-MO-OWj" firstAttribute="top" secondItem="Td5-2p-LHl" secondAttribute="bottom" constant="20" id="6Tc-JM-Li0"/>
-                            <constraint firstItem="5Pr-wD-5La" firstAttribute="leading" secondItem="Td5-2p-LHl" secondAttribute="leading" id="BsN-pg-Ghg"/>
-                            <constraint firstItem="5Pr-wD-5La" firstAttribute="top" secondItem="5xw-MO-OWj" secondAttribute="bottom" constant="20" id="Hvl-CV-zmJ"/>
                             <constraint firstItem="iR2-AB-kYX" firstAttribute="bottom" secondItem="Td5-2p-LHl" secondAttribute="bottom" id="Jnr-V6-nsm"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ozl-Qw-2VH" secondAttribute="trailing" constant="16" id="MaB-Wu-eSv"/>
-                            <constraint firstItem="5Pr-wD-5La" firstAttribute="trailing" secondItem="Td5-2p-LHl" secondAttribute="trailing" id="Mlh-ly-Qqc"/>
-                            <constraint firstItem="5xw-MO-OWj" firstAttribute="leading" secondItem="Td5-2p-LHl" secondAttribute="leading" id="Wck-0u-aLM"/>
                             <constraint firstItem="Td5-2p-LHl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="ZnY-0D-lJg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Td5-2p-LHl" secondAttribute="trailing" constant="16" id="cUi-7W-s6K"/>
                             <constraint firstItem="iR2-AB-kYX" firstAttribute="trailing" secondItem="Td5-2p-LHl" secondAttribute="trailing" id="cri-uk-9Ti"/>
                             <constraint firstItem="Ozl-Qw-2VH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gr6-4E-KLc"/>
-                            <constraint firstItem="5xw-MO-OWj" firstAttribute="trailing" secondItem="Td5-2p-LHl" secondAttribute="trailing" id="xAL-zK-gq7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5Pr-wD-5La" secondAttribute="trailing" constant="16" id="kSY-yE-yQ7"/>
+                            <constraint firstItem="5Pr-wD-5La" firstAttribute="top" secondItem="5xw-MO-OWj" secondAttribute="bottom" constant="20" id="lgH-Ah-ddg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5xw-MO-OWj" secondAttribute="trailing" constant="16" id="ot6-rA-5Ot"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ozl-Qw-2VH" secondAttribute="bottom" constant="16" id="xt4-s3-mnB"/>
                             <constraint firstItem="Td5-2p-LHl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="zvv-GZ-1ND"/>
                         </constraints>
@@ -78,7 +81,7 @@
                     <connections>
                         <outlet property="editButton" destination="Ozl-Qw-2VH" id="ktm-sJ-CA4"/>
                         <outlet property="profileImageView" destination="Td5-2p-LHl" id="qi7-sI-TEu"/>
-                        <outlet property="setProfileImageButton" destination="iR2-AB-kYX" id="hc1-xL-h4K"/>
+                        <outlet property="setProfileImageButton" destination="iR2-AB-kYX" id="2yK-c5-53z"/>
                         <outlet property="usernameLabel" destination="5xw-MO-OWj" id="Q3m-j7-DmF"/>
                         <outlet property="usersDescriptionLabel" destination="5Pr-wD-5La" id="Ypc-fG-Mxa"/>
                     </connections>
