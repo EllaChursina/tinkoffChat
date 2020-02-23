@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var usersDescriptionLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     
-    
     public var imagePickerController: UIImagePickerController?
     internal var selectedImage: UIImage? {
         get {
@@ -36,14 +35,35 @@ class ProfileViewController: UIViewController {
     
     // MARK: -Lifecycle
     
+    required init?(coder : NSCoder) {
+        super.init(coder: coder)
+        //print(editButton.frame)
+        //Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
+        //We can't get the frame of the button, because ProfileView is in initialization process
+        //and has not placed. So the frame also does not exist and return nil.
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("\(#function) called. EditButton frame is \(editButton.frame) at the moment")
         
         profileImageView.layer.cornerRadius = 40
         setProfileImageButton.layer.cornerRadius = 40
         editButton.layer.cornerRadius = 10
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("\(#function) called. EditButton frame is \(editButton.frame) at the moment")
+        // If we have different screen sizes in the storyboard and simulator,
+        //then the values of the button borders will be different.
+        //In viewDidLoad method, the frame will be the original as in the storyboard.
+        //When viewDidAppear is called, AutoLayout will calculate the frame according
+        //to the size of the simulator screen before the view presented on the screen.
     }
     
     // MARK: -Action
@@ -118,8 +138,7 @@ class ProfileViewController: UIViewController {
            let okCameraButton = UIAlertAction(title: "OK", style: .default, handler: nil)
            noGalleryAlertController.addAction(okCameraButton)
            present(noGalleryAlertController, animated: true)
-       }
-    
+    }
 }
 
 // MARK: -UIImagePickerControllerDelegate
@@ -135,8 +154,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             picker.delegate = nil
             self.imagePickerController = nil
         }
-        
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
