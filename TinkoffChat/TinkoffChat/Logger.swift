@@ -15,7 +15,7 @@ enum LogTag: String {
 
 struct Logger {
     // Switch var "loggerOn" on "false" state if you want turn off logging
-    static var loggerOn = true
+    static var loggerOn =  false
     static func log(tag: LogTag, message: String) {
         guard loggerOn == true else {return}
         print("tag: \(tag), message: \(message)")
