@@ -10,18 +10,24 @@ import UIKit
 
 class ConversationListViewController: UIViewController {
     
-    // MARK: -Table
-    var dataArray = ConversationDataModel()
-    var tableSectionName = ["Online", "History"]
+    // MARK: -TableViewData
+    fileprivate var dataArray = ConversationDataModel()
+    fileprivate var tableSectionName = ["Online", "History"]
     
     // MARK: -UI
     @IBOutlet weak var conversationListTableView: UITableView!
     
     // MARK: -Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //MARK: -Navigate
+        navigationItem.title = "Tinkoff Chat"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let profileItem = UIBarButtonItem(image: UIImage(named: "profile"), style: .plain, target: self, action: #selector(goToProfileViewController))
+        navigationItem.rightBarButtonItem = profileItem
+        
+        //MARK: -TableView
         self.conversationListTableView.dataSource = self
         self.conversationListTableView.delegate = self
         self.conversationListTableView.register(UINib(nibName: String(describing: ConversationListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationListTableViewCell.self))
@@ -29,7 +35,12 @@ class ConversationListViewController: UIViewController {
         self.conversationListTableView.estimatedRowHeight = 66
     }
     
-
+    @objc func goToProfileViewController() {
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        if let vc = storyboard.instantiateInitialViewController() {
+            self.present(vc, animated: true, completion: nil) 
+        }
+    }
 }
 
 
@@ -65,8 +76,17 @@ extension ConversationListViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDataSourse
+// MARK: - UITableViewDelegate
 
 extension ConversationListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? ConversationListTableViewCell,
+            let vc = UIStoryboard(name: "Conversation", bundle: nil).instantiateInitialViewController() as? ConversationViewController
+            else { return }
+        
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.title = cell.name
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

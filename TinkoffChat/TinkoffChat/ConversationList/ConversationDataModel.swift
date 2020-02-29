@@ -17,6 +17,7 @@ class ConversationDataModel {
     }
     
     func setupData() {
+        // Random data for conversation cell
         let names = ["Kelly Ochoa", "Macey Blundell", "Lacey-Mai Kirkland", "Dustin Bennett", "Rosie Austin", "Akaash Ashton", "Huxley Legge", "Kaila Patton", "Kunal Richmond", "Arjan Mcphee", "Rebeca Tillman", "Aiza Beattie", "Jemma Gallagher", "Jae Findlay", "Ameen Finch", "Julie Jensen", "Kodi Colley", "Christie Goodwin", "Aishah Mccarthy", "Camille Hubbard"]
         let lastMessages = ["We've known each other for so long",
                             "Please forgive me",
@@ -31,14 +32,13 @@ class ConversationDataModel {
                             "why is everything broken",
                             "it's friday",
                             "Still can't get this right...",
-                            "making this thing actually usable.",
+                            "making this thing actually usable",
                             nil,
                             "I must have been drunk.",
                             "I have no idea what I'm doing here.",
                             "omgsosorry",
                             "Yes, I was being sarcastic.",
                             "should work now."]
-        
         func generateRandomDate(daysBack: Int)-> Date?{
             let day = arc4random_uniform(UInt32(daysBack))+1
             let hour = arc4random_uniform(23)

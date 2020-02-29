@@ -35,14 +35,14 @@ class ProfileViewController: UIViewController {
     
     // MARK: -Lifecycle
     
-    required init?(coder : NSCoder) {
-        super.init(coder: coder)
-        //print(editButton.frame)
-        //Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
-        //We can't get the frame of the button, because ProfileView is in initialization process
-        //and has not placed. So the frame also does not exist and return nil.
-        
-    }
+//    required init?(coder : NSCoder) {
+//        super.init(coder: coder)
+//        //print(editButton.frame)
+//        //Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
+//        //We can't get the frame of the button, because ProfileView is in initialization process
+//        //and has not placed. So the frame also does not exist and return nil.
+//        
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

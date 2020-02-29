@@ -26,16 +26,12 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     var message: String? {
         didSet {
             if message != nil && !hasUnreadMessages {
-                lastMessageTextLabel.font = UIFont.systemFont(ofSize: 14)
-                lastMessageTextLabel.textColor = UIColor.lightGray
                 lastMessageTextLabel.text = message
             } else if message != nil && hasUnreadMessages {
-                lastMessageTextLabel.font = UIFont.boldSystemFont(ofSize: 14)
-                lastMessageTextLabel.textColor = UIColor.lightGray
                 lastMessageTextLabel.text = message
             } else {
-                lastMessageTextLabel.font = UIFont(name: "Arial", size: 14)
-                lastMessageTextLabel.textColor = UIColor.darkGray
+                lastMessageTextLabel.font = UIFont(name: "Arial", size: 15)
+                lastMessageTextLabel.textColor = UIColor.lightGray
                 lastMessageTextLabel.text = "No messages yet"
             }
         }
@@ -58,7 +54,7 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     var online: Bool = false {
        didSet {
                 if online {
-                    backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+                    backgroundColor = #colorLiteral(red: 0.9483336861, green: 0.9995340705, blue: 0.6436102074, alpha: 1)
                 } else {
                     backgroundColor = UIColor.white
                 }
@@ -67,10 +63,14 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     
     var hasUnreadMessages: Bool = false {
         didSet {
+            if message == nil {
+                unreadMessageIndicatorLabel.isHidden = true
+            } else {
             lastMessageTextLabel.font = hasUnreadMessages
                 ? UIFont.boldSystemFont(ofSize: nameLabel.font.pointSize)
                 : UIFont.systemFont(ofSize: nameLabel.font.pointSize)
             unreadMessageIndicatorLabel.isHidden = !hasUnreadMessages
+            }
         }
     }
     
@@ -87,7 +87,4 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     }
 }
 
-protocol ConfigurableView {
-    associatedtype ConfigurationModel
-    func configure(with model: ConfigurationModel)
-}
+
