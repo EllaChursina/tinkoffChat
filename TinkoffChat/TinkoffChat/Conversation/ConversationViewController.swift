@@ -27,8 +27,7 @@ class ConversationViewController: UIViewController {
         // MARK: -TableView
         conversationTableView.delegate = self
         conversationTableView.dataSource = self
-        conversationTableView.register(UINib(nibName: String(describing: ConversationOutgoingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationOutgoingMessageCell.self))
-        conversationTableView.register(UINib(nibName: String(describing: ConversationIncomingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationIncomingMessageCell.self))
+        conversationTableView.register(UINib(nibName: String(describing: ConversationMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationMessageCell.self))
         conversationTableView.rowHeight = UITableView.automaticDimension
         conversationTableView.backgroundColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0)
         conversationTableView.separatorStyle = .none
@@ -43,24 +42,19 @@ extension ConversationViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier: String
+        let identifier = String(describing: ConversationMessageCell.self)
         let message = dataArray.messagesData[indexPath.row]
         
+        guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationMessageCell else { fatalError("ConversationMessageCell cannot be dequeued") }
         if indexPath.row % 2 == 0 {
-            identifier = String(describing: ConversationIncomingMessageCell.self)
-            
-            guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationIncomingMessageCell else { fatalError("ConversationIncomingMessageCell cannot be dequeued") }
-            cell.configure(with: message)
-            
-            return cell
+            cell.messageIsIncoming = false
         } else {
-            identifier = String(describing: ConversationOutgoingMessageCell.self)
-            
-            guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationOutgoingMessageCell else { fatalError("ConversationOutgoingMessageCell cannot be dequeued") }
-            cell.configure(with: message)
-            
-            return cell
+            cell.messageIsIncoming = true
         }
+        
+        cell.configure(with: message)
+        
+        return cell
     }
 }
 
