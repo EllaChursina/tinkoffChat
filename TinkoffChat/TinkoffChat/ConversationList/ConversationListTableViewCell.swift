@@ -11,8 +11,16 @@ import UIKit
 class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     
     static let identifier = String(describing: ConversationListTableViewCell.self)
-    static let todayDateFormatter = DateFormatter()
-    static let otherDayDateFormatter = DateFormatter()
+    private static let todayDateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    private static let otherDayDateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM"
+        return formatter
+    }()
     
 
     // MARK: -UI
@@ -46,8 +54,6 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
                 lastMessageTimeAndDateLabel.text = ""
                 return
             }
-            ConversationListTableViewCell.todayDateFormatter.dateFormat = "HH:mm"
-            ConversationListTableViewCell.otherDayDateFormatter.dateFormat = "dd MMMM"
             if NSCalendar.current.isDateInToday(date) {
                 lastMessageTimeAndDateLabel.text = ConversationListTableViewCell.todayDateFormatter.string(from: date)
             } else {
@@ -70,7 +76,7 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
         didSet {
             if message == nil {
                 unreadMessageIndicatorLabel.isHidden = true
-                lastMessageTimeAndDateLabel.isHidden = true 
+                lastMessageTimeAndDateLabel.isHidden = true
             } else {
                 lastMessageTextLabel.font = hasUnreadMessages
                     ? UIFont.boldSystemFont(ofSize: nameLabel.font.pointSize)
@@ -87,6 +93,7 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     override func prepareForReuse() {
         lastMessageTextLabel.font = UIFont.systemFont(ofSize: nameLabel.font.pointSize)
         lastMessageTextLabel.textColor = UIColor.gray
+        lastMessageTimeAndDateLabel.isHidden = false 
     }
 
     func configure(with model: ConversationCellModel) {

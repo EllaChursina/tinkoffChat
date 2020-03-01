@@ -27,5 +27,4 @@ class ConversationIncomingMessageCell: UITableViewCell, ConfigurableView {
     func configure(with model: MessageCellModel) {
         incomingMessageLabel.text = model.text
     }
-    
 }
