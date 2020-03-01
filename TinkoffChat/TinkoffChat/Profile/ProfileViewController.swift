@@ -11,11 +11,11 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     //UI
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var setProfileImageButton: UIButton!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var usersDescriptionLabel: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var setProfileImageButton: UIButton!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var usersDescriptionLabel: UILabel!
+    @IBOutlet private weak var editButton: UIButton!
     
     public var imagePickerController: UIImagePickerController?
     internal var selectedImage: UIImage? {
@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController {
         
         profileImageView.layer.cornerRadius = 40
         setProfileImageButton.layer.cornerRadius = 40
+        
         editButton.layer.cornerRadius = 10
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor

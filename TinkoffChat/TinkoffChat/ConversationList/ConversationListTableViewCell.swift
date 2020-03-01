@@ -9,13 +9,18 @@
 import UIKit
 
 class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
+    
+    static let identifier = String(describing: ConversationListTableViewCell.self)
+    static let todayDateFormatter = DateFormatter()
+    static let otherDayDateFormatter = DateFormatter()
+    
 
     // MARK: -UI
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var lastMessageTextLabel: UILabel!
-    @IBOutlet weak var lastMessageTimeAndDateLabel: UILabel!
-    @IBOutlet weak var unreadMessageIndicatorLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var lastMessageTextLabel: UILabel!
+    @IBOutlet private weak var lastMessageTimeAndDateLabel: UILabel!
+    @IBOutlet private weak var unreadMessageIndicatorLabel: UILabel!
     
     var name: String? {
         didSet {
@@ -25,9 +30,7 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     
     var message: String? {
         didSet {
-            if message != nil && !hasUnreadMessages {
-                lastMessageTextLabel.text = message
-            } else if message != nil && hasUnreadMessages {
+            if let message = message {
                 lastMessageTextLabel.text = message
             } else {
                 lastMessageTextLabel.font = UIFont(name: "Arial", size: 15)
@@ -43,39 +46,47 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
                 lastMessageTimeAndDateLabel.text = ""
                 return
             }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = NSCalendar.current.isDateInToday(date)
-                ? "HH:mm"
-                : "dd MMMM"
-            lastMessageTimeAndDateLabel.text = dateFormatter.string(from: date)
+            ConversationListTableViewCell.todayDateFormatter.dateFormat = "HH:mm"
+            ConversationListTableViewCell.otherDayDateFormatter.dateFormat = "dd MMMM"
+            if NSCalendar.current.isDateInToday(date) {
+                lastMessageTimeAndDateLabel.text = ConversationListTableViewCell.todayDateFormatter.string(from: date)
+            } else {
+                lastMessageTimeAndDateLabel.text = ConversationListTableViewCell.otherDayDateFormatter.string(from: date)
+            }
         }
     }
     
     var online: Bool = false {
        didSet {
-                if online {
-                    backgroundColor = #colorLiteral(red: 0.9483336861, green: 0.9995340705, blue: 0.6436102074, alpha: 1)
-                } else {
-                    backgroundColor = UIColor.white
-                }
+            if online {
+                backgroundColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+            } else {
+                backgroundColor = UIColor.white
             }
+        }
     }
     
     var hasUnreadMessages: Bool = false {
         didSet {
             if message == nil {
                 unreadMessageIndicatorLabel.isHidden = true
+                lastMessageTimeAndDateLabel.isHidden = true 
             } else {
-            lastMessageTextLabel.font = hasUnreadMessages
-                ? UIFont.boldSystemFont(ofSize: nameLabel.font.pointSize)
-                : UIFont.systemFont(ofSize: nameLabel.font.pointSize)
-            unreadMessageIndicatorLabel.isHidden = !hasUnreadMessages
+                lastMessageTextLabel.font = hasUnreadMessages
+                    ? UIFont.boldSystemFont(ofSize: nameLabel.font.pointSize)
+                    : UIFont.systemFont(ofSize: nameLabel.font.pointSize)
+                unreadMessageIndicatorLabel.isHidden = !hasUnreadMessages
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    override func prepareForReuse() {
+        lastMessageTextLabel.font = UIFont.systemFont(ofSize: nameLabel.font.pointSize)
+        lastMessageTextLabel.textColor = UIColor.gray
     }
 
     func configure(with model: ConversationCellModel) {

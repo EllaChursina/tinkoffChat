@@ -11,21 +11,13 @@ import UIKit
 class ConversationIncomingMessageCell: UITableViewCell, ConfigurableView {
 
     // MARK: -UI
-    @IBOutlet weak var incomingMessageLabel: UILabel!
-    @IBOutlet weak var backgroundMessageView: UIView!
-    
-    var textForIncomingMessage: String = "" {
-        didSet {
-            incomingMessageLabel.text = textForIncomingMessage
-            incomingMessageLabel.numberOfLines = 0
-            backgroundMessageView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            backgroundMessageView.layer.cornerRadius = 8
-        }
-    }
+    @IBOutlet private weak var incomingMessageLabel: UILabel!
+    @IBOutlet private weak var backgroundMessageView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundMessageView.backgroundColor = .white
+        backgroundMessageView.layer.cornerRadius = 8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,7 +25,7 @@ class ConversationIncomingMessageCell: UITableViewCell, ConfigurableView {
     }
     
     func configure(with model: MessageCellModel) {
-        textForIncomingMessage = model.text
+        incomingMessageLabel.text = model.text
     }
     
 }

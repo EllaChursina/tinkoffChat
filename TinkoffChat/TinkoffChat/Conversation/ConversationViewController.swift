@@ -14,7 +14,7 @@ class ConversationViewController: UIViewController {
     fileprivate var dataArray = MessageDataModel()
     
     // MARK: -UI
-    @IBOutlet weak var conversationTableView: UITableView!
+    @IBOutlet private weak var conversationTableView: UITableView!
     
     // MARK: -LIfecycle
     
@@ -25,13 +25,13 @@ class ConversationViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         // MARK: -TableView
-        self.conversationTableView.delegate = self
-        self.conversationTableView.dataSource = self
-        self.conversationTableView.register(UINib(nibName: String(describing: ConversationOutgoingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationOutgoingMessageCell.self))
-        self.conversationTableView.register(UINib(nibName: String(describing: ConversationIncomingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationIncomingMessageCell.self))
-        self.conversationTableView.rowHeight = UITableView.automaticDimension
-        self.conversationTableView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-        self.conversationTableView.separatorStyle = .none
+        conversationTableView.delegate = self
+        conversationTableView.dataSource = self
+        conversationTableView.register(UINib(nibName: String(describing: ConversationOutgoingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationOutgoingMessageCell.self))
+        conversationTableView.register(UINib(nibName: String(describing: ConversationIncomingMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationIncomingMessageCell.self))
+        conversationTableView.rowHeight = UITableView.automaticDimension
+        conversationTableView.backgroundColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0)
+        conversationTableView.separatorStyle = .none
     }
 }
 
@@ -45,16 +45,20 @@ extension ConversationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier: String
         let message = dataArray.messagesData[indexPath.row]
+        
         if indexPath.row % 2 == 0 {
             identifier = String(describing: ConversationIncomingMessageCell.self)
+            
             guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationIncomingMessageCell else { fatalError("ConversationIncomingMessageCell cannot be dequeued") }
             cell.configure(with: message)
+            
             return cell
         } else {
-            
             identifier = String(describing: ConversationOutgoingMessageCell.self)
+            
             guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationOutgoingMessageCell else { fatalError("ConversationOutgoingMessageCell cannot be dequeued") }
             cell.configure(with: message)
+            
             return cell
         }
     }

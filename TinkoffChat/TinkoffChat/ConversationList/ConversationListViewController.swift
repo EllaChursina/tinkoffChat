@@ -15,7 +15,7 @@ class ConversationListViewController: UIViewController {
     fileprivate var tableSectionName = ["Online", "History"]
     
     // MARK: -UI
-    @IBOutlet weak var conversationListTableView: UITableView!
+    @IBOutlet private weak var conversationListTableView: UITableView!
     
     // MARK: -Lifecycle
     override func viewDidLoad() {
@@ -28,14 +28,14 @@ class ConversationListViewController: UIViewController {
         navigationItem.rightBarButtonItem = profileItem
         
         //MARK: -TableView
-        self.conversationListTableView.dataSource = self
-        self.conversationListTableView.delegate = self
-        self.conversationListTableView.register(UINib(nibName: String(describing: ConversationListTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationListTableViewCell.self))
-        self.conversationListTableView.rowHeight = UITableView.automaticDimension
-        self.conversationListTableView.estimatedRowHeight = 66
+        conversationListTableView.dataSource = self
+        conversationListTableView.delegate = self
+        conversationListTableView.register(UINib(nibName: ConversationListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ConversationListTableViewCell.identifier)
+        conversationListTableView.rowHeight = UITableView.automaticDimension
+        conversationListTableView.estimatedRowHeight = 66
     }
     
-    @objc func goToProfileViewController() {
+    @objc private func goToProfileViewController() {
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         if let vc = storyboard.instantiateInitialViewController() {
             self.present(vc, animated: true, completion: nil) 
@@ -58,8 +58,8 @@ extension ConversationListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = String(describing: ConversationListTableViewCell.self)
-        guard let cell = conversationListTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationListTableViewCell else { fatalError("ConversationListTableViewCell cannot be dequeued") }
+        
+        guard let cell = conversationListTableView.dequeueReusableCell(withIdentifier: ConversationListTableViewCell.identifier) as? ConversationListTableViewCell else { fatalError("ConversationListTableViewCell cannot be dequeued") }
         let tableSection = tableSectionName[indexPath.section]
         let conversation: ConversationCellModel
         if tableSection == "Online" {
@@ -67,6 +67,7 @@ extension ConversationListViewController: UITableViewDataSource {
         } else {
             conversation = dataArray.offlineConversations[indexPath.row]
         }
+        
         cell.configure(with: conversation)
         return cell
     }

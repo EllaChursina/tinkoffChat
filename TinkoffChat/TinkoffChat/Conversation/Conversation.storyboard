@@ -21,24 +21,27 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-cu-I3c">
-                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zb2-BQ-lx3">
-                                        <rect key="frame" x="16" y="9" width="22" height="22"/>
+                                        <rect key="frame" x="16" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Zb2-BQ-lx3" secondAttribute="height" multiplier="1:1" id="LNf-zx-Drs"/>
                                         </constraints>
-                                        <state key="normal" image="paperclip" catalog="system"/>
+                                        <state key="normal" image="clip"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCC-la-S3g">
-                                        <rect key="frame" x="282" y="9" width="22" height="22"/>
+                                        <rect key="frame" x="280" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="PCC-la-S3g" secondAttribute="height" multiplier="22:22" id="Hlt-fp-5HK"/>
                                         </constraints>
-                                        <state key="normal" image="paperplane.fill" catalog="system"/>
+                                        <state key="normal" image="paper-plane"/>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-MF-RGL">
-                                        <rect key="frame" x="46" y="3" width="228" height="34"/>
+                                        <rect key="frame" x="48" y="8" width="224" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="224" id="ERb-Aw-T7d"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -46,12 +49,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="PCC-la-S3g" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="5ms-Ij-OHg"/>
-                                    <constraint firstAttribute="height" constant="40" id="9KI-cL-zqn"/>
                                     <constraint firstItem="PCC-la-S3g" firstAttribute="leading" secondItem="tuo-MF-RGL" secondAttribute="trailing" constant="8" id="FQP-rX-B8P"/>
                                     <constraint firstItem="tuo-MF-RGL" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="LQ2-aJ-vx9"/>
+                                    <constraint firstItem="tuo-MF-RGL" firstAttribute="top" secondItem="Fl8-cu-I3c" secondAttribute="top" constant="8" id="T0v-tx-gey"/>
                                     <constraint firstItem="Zb2-BQ-lx3" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="XYP-ZB-EOo"/>
                                     <constraint firstAttribute="trailing" secondItem="PCC-la-S3g" secondAttribute="trailing" constant="16" id="iGK-z9-dA0"/>
                                     <constraint firstItem="tuo-MF-RGL" firstAttribute="leading" secondItem="Zb2-BQ-lx3" secondAttribute="trailing" constant="8" id="naD-WA-UMx"/>
+                                    <constraint firstAttribute="bottom" secondItem="tuo-MF-RGL" secondAttribute="bottom" constant="8" id="qDs-Am-Ghv"/>
                                     <constraint firstItem="Zb2-BQ-lx3" firstAttribute="leading" secondItem="Fl8-cu-I3c" secondAttribute="leading" constant="16" id="wz9-9I-NkB"/>
                                 </constraints>
                             </view>
@@ -78,7 +82,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="paperclip" catalog="system" width="64" height="64"/>
-        <image name="paperplane.fill" catalog="system" width="64" height="60"/>
+        <image name="clip" width="24" height="24"/>
+        <image name="paper-plane" width="24" height="24"/>
     </resources>
 </document>
