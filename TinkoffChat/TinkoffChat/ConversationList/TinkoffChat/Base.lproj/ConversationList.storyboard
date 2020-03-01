@@ -30,7 +30,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aNP-Ce-QA2"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tinkoff Chat" id="Qs6-eL-0o0"/>
+                    <navigationItem key="navigationItem" title="Tinkoff Chat" id="Qs6-eL-0o0">
+                        <barButtonItem key="backBarButtonItem" title="Chats" id="yeO-kN-qg8"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="conversationListTableView" destination="Xax-7s-opC" id="teb-88-3Tw"/>
                     </connections>
