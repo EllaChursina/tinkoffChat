@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var usernameLabel: UILabel!
     @IBOutlet private weak var usersDescriptionLabel: UILabel!
     @IBOutlet private weak var editButton: UIButton!
+    @IBOutlet private weak var closeProfileButton: UIBarButtonItem!
     
     public var imagePickerController: UIImagePickerController?
     internal var selectedImage: UIImage? {
@@ -139,6 +140,11 @@ class ProfileViewController: UIViewController {
            let okCameraButton = UIAlertAction(title: "OK", style: .default, handler: nil)
            noGalleryAlertController.addAction(okCameraButton)
            present(noGalleryAlertController, animated: true)
+    }
+    
+    
+    @IBAction private func tapCloseButtonProfile(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

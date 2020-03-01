@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="BYZ-38-t0r" customClass="ProfileViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
@@ -79,8 +79,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="BJa-TW-72K"/>
+                    <navigationItem key="navigationItem" title="Profile" id="BJa-TW-72K">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="GGe-ox-9Jg">
+                            <connections>
+                                <action selector="tapCloseButtonProfile:" destination="BYZ-38-t0r" id="vgl-Mt-Ozo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="closeProfileButton" destination="GGe-ox-9Jg" id="9ik-yT-Q9I"/>
                         <outlet property="editButton" destination="Ozl-Qw-2VH" id="ktm-sJ-CA4"/>
                         <outlet property="profileImageView" destination="Td5-2p-LHl" id="qi7-sI-TEu"/>
                         <outlet property="setProfileImageButton" destination="iR2-AB-kYX" id="2yK-c5-53z"/>
