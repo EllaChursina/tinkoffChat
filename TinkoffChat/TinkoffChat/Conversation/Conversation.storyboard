@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="k6P-b4-zr4">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Conversation View Controller-->
+        <scene sceneID="cav-8U-L63">
+            <objects>
+                <viewController id="k6P-b4-zr4" customClass="ConversationViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uTX-co-f5c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="laP-aA-Tqo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-cu-I3c">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zb2-BQ-lx3">
+                                        <rect key="frame" x="16" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Zb2-BQ-lx3" secondAttribute="height" multiplier="1:1" id="LNf-zx-Drs"/>
+                                        </constraints>
+                                        <state key="normal" image="clip"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCC-la-S3g">
+                                        <rect key="frame" x="280" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="PCC-la-S3g" secondAttribute="height" multiplier="22:22" id="Hlt-fp-5HK"/>
+                                        </constraints>
+                                        <state key="normal" image="paper-plane"/>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-MF-RGL">
+                                        <rect key="frame" x="48" y="8" width="224" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="224" id="ERb-Aw-T7d"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="PCC-la-S3g" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="5ms-Ij-OHg"/>
+                                    <constraint firstItem="PCC-la-S3g" firstAttribute="leading" secondItem="tuo-MF-RGL" secondAttribute="trailing" constant="8" id="FQP-rX-B8P"/>
+                                    <constraint firstItem="tuo-MF-RGL" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="LQ2-aJ-vx9"/>
+                                    <constraint firstItem="tuo-MF-RGL" firstAttribute="top" secondItem="Fl8-cu-I3c" secondAttribute="top" constant="8" id="T0v-tx-gey"/>
+                                    <constraint firstItem="Zb2-BQ-lx3" firstAttribute="centerY" secondItem="Fl8-cu-I3c" secondAttribute="centerY" id="XYP-ZB-EOo"/>
+                                    <constraint firstAttribute="trailing" secondItem="PCC-la-S3g" secondAttribute="trailing" constant="16" id="iGK-z9-dA0"/>
+                                    <constraint firstItem="tuo-MF-RGL" firstAttribute="leading" secondItem="Zb2-BQ-lx3" secondAttribute="trailing" constant="8" id="naD-WA-UMx"/>
+                                    <constraint firstAttribute="bottom" secondItem="tuo-MF-RGL" secondAttribute="bottom" constant="8" id="qDs-Am-Ghv"/>
+                                    <constraint firstItem="Zb2-BQ-lx3" firstAttribute="leading" secondItem="Fl8-cu-I3c" secondAttribute="leading" constant="16" id="wz9-9I-NkB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="laP-aA-Tqo" firstAttribute="top" secondItem="XE5-KI-fG9" secondAttribute="top" id="H0g-zO-Le2"/>
+                            <constraint firstItem="laP-aA-Tqo" firstAttribute="leading" secondItem="XE5-KI-fG9" secondAttribute="leading" id="JfB-og-kJn"/>
+                            <constraint firstItem="Fl8-cu-I3c" firstAttribute="bottom" secondItem="XE5-KI-fG9" secondAttribute="bottom" id="PQt-nY-F2x"/>
+                            <constraint firstItem="Fl8-cu-I3c" firstAttribute="leading" secondItem="XE5-KI-fG9" secondAttribute="leading" id="ZDu-Rf-vwM"/>
+                            <constraint firstItem="XE5-KI-fG9" firstAttribute="trailing" secondItem="laP-aA-Tqo" secondAttribute="trailing" id="e5N-t8-Bb7"/>
+                            <constraint firstItem="XE5-KI-fG9" firstAttribute="trailing" secondItem="Fl8-cu-I3c" secondAttribute="trailing" id="eIA-UD-3Uc"/>
+                            <constraint firstItem="laP-aA-Tqo" firstAttribute="bottom" secondItem="Fl8-cu-I3c" secondAttribute="bottom" id="rZN-R5-pkR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XE5-KI-fG9"/>
+                    </view>
+                    <connections>
+                        <outlet property="conversationTableView" destination="laP-aA-Tqo" id="Vir-dR-fsd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1eu-Sv-PEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121.875" y="143.66197183098592"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="clip" width="24" height="24"/>
+        <image name="paper-plane" width="24" height="24"/>
+    </resources>
+</document>

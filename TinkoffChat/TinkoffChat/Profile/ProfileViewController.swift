@@ -11,11 +11,12 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     //UI
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var setProfileImageButton: UIButton!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var usersDescriptionLabel: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var setProfileImageButton: UIButton!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var usersDescriptionLabel: UILabel!
+    @IBOutlet private weak var editButton: UIButton!
+    @IBOutlet private weak var closeProfileButton: UIBarButtonItem!
     
     public var imagePickerController: UIImagePickerController?
     internal var selectedImage: UIImage? {
@@ -35,14 +36,14 @@ class ProfileViewController: UIViewController {
     
     // MARK: -Lifecycle
     
-    required init?(coder : NSCoder) {
-        super.init(coder: coder)
-        //print(editButton.frame)
-        //Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
-        //We can't get the frame of the button, because ProfileView is in initialization process
-        //and has not placed. So the frame also does not exist and return nil.
-        
-    }
+//    required init?(coder : NSCoder) {
+//        super.init(coder: coder)
+//        //print(editButton.frame)
+//        //Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
+//        //We can't get the frame of the button, because ProfileView is in initialization process
+//        //and has not placed. So the frame also does not exist and return nil.
+//        
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class ProfileViewController: UIViewController {
         
         profileImageView.layer.cornerRadius = 40
         setProfileImageButton.layer.cornerRadius = 40
+        
         editButton.layer.cornerRadius = 10
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
@@ -138,6 +140,11 @@ class ProfileViewController: UIViewController {
            let okCameraButton = UIAlertAction(title: "OK", style: .default, handler: nil)
            noGalleryAlertController.addAction(okCameraButton)
            present(noGalleryAlertController, animated: true)
+    }
+    
+    
+    @IBAction private func tapCloseButtonProfile(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
