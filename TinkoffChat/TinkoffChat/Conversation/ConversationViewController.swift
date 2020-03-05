@@ -46,12 +46,8 @@ extension ConversationViewController: UITableViewDataSource {
         let message = dataArray.messagesData[indexPath.row]
         
         guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationMessageCell else { fatalError("ConversationMessageCell cannot be dequeued") }
-        if indexPath.row % 2 == 0 {
-            cell.messageIsIncoming = false
-        } else {
-            cell.messageIsIncoming = true
-        }
         
+        cell.messageIsIncoming = indexPath.row % 2 == 0
         cell.configure(with: message)
         
         return cell

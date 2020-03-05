@@ -13,26 +13,24 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var backgroundMessageView: UIView!
     
-    @IBOutlet private weak var leftMessageConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var rightMessageConstraint: NSLayoutConstraint!
+    @IBOutlet private var leftMessageConstraint: NSLayoutConstraint!
+    @IBOutlet private var rightMessageConstraint: NSLayoutConstraint!
     
-    var messageIsIncoming: Bool = true {
+    var messageIsIncoming: Bool! {
         didSet {
+            backgroundMessageView.backgroundColor = messageIsIncoming ? .white : UIColor(red: 255.0/255.0, green: 215.0/255.0, blue: 0.0/255.0, alpha: 1.0)
             if messageIsIncoming {
-                backgroundMessageView.backgroundColor = UIColor.white
-                leftMessageConstraint.constant = 8
+                leftMessageConstraint.constant = 16
                 rightMessageConstraint.isActive = false
             } else {
-                backgroundMessageView.backgroundColor = UIColor(red: 255.0/255.0, green: 215.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                 leftMessageConstraint.isActive = false
-                rightMessageConstraint.constant = 8
+                rightMessageConstraint.constant = 16
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundMessageView.backgroundColor = UIColor(red: 255.0/255.0, green: 215.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         backgroundMessageView.layer.cornerRadius = 8
     }
 
@@ -41,7 +39,11 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
     }
     
     override func prepareForReuse() {
-       messageLabel.text = ""
+        messageLabel.text = ""
+        leftMessageConstraint.isActive = true
+        rightMessageConstraint.isActive = true 
+        print("prepareForReuse")
+        
     }
     
     func configure(with model: MessageCellModel) {
