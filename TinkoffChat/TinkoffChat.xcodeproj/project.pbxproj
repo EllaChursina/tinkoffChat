@@ -66,6 +66,7 @@
 		CD87B5F823F5C0DB0014DD5B /* TinkoffChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87B5FC23F5C0DB0014DD5B /* TinkoffChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkoffChatTests.swift; sourceTree = "<group>"; };
 		CD87B5FE23F5C0DB0014DD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDF02F15241289CF00C54AE4 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +153,7 @@
 				CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */,
 				CD87B5F323F5C0DB0014DD5B /* Info.plist */,
 				CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */,
+				CDF02F15241289CF00C54AE4 /* MyPlayground.playground */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
