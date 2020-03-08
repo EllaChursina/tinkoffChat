@@ -119,6 +119,7 @@ class Company {
         ceo?.productManager?.developer2?.conversationBetweenDevelopers(message: "ok, no problem")
         ceo?.productManager?.developer1?.conversationWithProductManager(message: "i don't have time to finish the task")
         ceo?.productManager?.developer2?.conversationWithCEO(message: "I want a promotion")
+        print("Deinit")
     }
     
     deinit {
