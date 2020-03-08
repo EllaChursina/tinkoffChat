@@ -77,7 +77,7 @@ class Developer {
             return
         }
         
-        print("\(self.name) says \(anotherDeveloper.name): \(message)")
+        print("\(name) says \(anotherDeveloper.name): \(message)")
     }
     
     func conversationWithProductManager(message: String) {
@@ -86,7 +86,7 @@ class Developer {
             return
         }
         
-        print("\(self.name) says \(productManager.name): \(message)")
+        print("\(name) says \(productManager.name): \(message)")
     }
     
     func conversationWithCEO(message: String) {
@@ -95,11 +95,11 @@ class Developer {
               return
           }
         
-        print("\(self.name) says \(ceo.name): \(message)")
+        print("\(name) says \(ceo.name): \(message)")
     }
     
     deinit {
-        print("Developer deinit")
+        print("Developer \(name) deinit")
     }
 }
 
