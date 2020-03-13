@@ -10,7 +10,7 @@ class CEO {
     }
     
     lazy var printManager = { [weak self] in
-        print("Hello, I'm \(self?.productManager?.name ?? "%unknown%"), product manager of the Company")
+        self?.productManager?.printManager()
     }
     
     lazy var printDevelopers = { [weak self] in
@@ -18,6 +18,7 @@ class CEO {
     }
     
     lazy var printCompany = { [weak self] in
+        print("Hello, I'm \(self?.name ?? "%unknown%"), CEO of the Company")
         self?.productManager?.printCompany()
     }
     
@@ -37,10 +38,13 @@ class ProductManager {
         self.name = name
     }
     
+    func printManager() {
+        print("Hello, I'm \(name ?? "%unknown%"), product manager of the Company")
+    }
+    
     func printCompany() {
-        print("Hello, I'm \(ceo?.name ?? "%unknown%"), CEO of the Company")
-        ceo?.printManager()
-        ceo?.printDevelopers()
+        printManager()
+        printDevelopers()
     }
     
     func printDevelopers() {
