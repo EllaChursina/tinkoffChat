@@ -331,10 +331,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return self.imagePickerControllerDidCancel(picker)
         }
-        self.selectedImage = image
+        guard let fixedOrientationImage = image.fixedOrientation() else {return}
+        self.selectedImage = fixedOrientationImage
         
         if let savedImage = self.profile?.avatar {
-            guard let newImage = image.pngData(),
+            guard let newImage = fixedOrientationImage.pngData(),
                   let oldImage = savedImage.pngData() else {return}
             profile?.imageChanged = !newImage.elementsEqual(oldImage)
         } else {

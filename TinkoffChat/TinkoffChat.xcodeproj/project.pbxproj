@@ -33,6 +33,7 @@
 		CDA4307D241C263D00BAA76D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307C241C263D00BAA76D /* Profile.swift */; };
 		CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */; };
 		CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */; };
+		CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43082241E936A00BAA76D /* FixedOrientation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		CDA4307C241C263D00BAA76D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
 		CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOperations.swift; sourceTree = "<group>"; };
+		CDA43082241E936A00BAA76D /* FixedOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedOrientation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				CDA4307A241C24C200BAA76D /* GCDDataManager.swift */,
 				CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */,
 				CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */,
+				CDA43082241E936A00BAA76D /* FixedOrientation.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */,
 				CDA4307B241C24C200BAA76D /* GCDDataManager.swift in Sources */,
 				CD025D182408127000A6D502 /* ConversationCellModel.swift in Sources */,
+				CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */,
 				CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */,
 				CD825C7823F956B0007750C1 /* Logger.swift in Sources */,
 			);
