@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class ConversationListViewController: UIViewController {
+    
+    private lazy var db = Firestore.firestore()
+    private lazy var reference = db.collection("channels")
+    
+    var channel: Channel?
     
     // MARK: -TableViewData
     fileprivate var dataArray = ConversationDataModel()
@@ -21,6 +27,10 @@ class ConversationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        reference.addSnapshotListener { [weak self] snapshot, error in
+//            print(snapshot!.documents[1].documentID)
+        }
         //MARK: -Navigate
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true

@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import Firebase
 
 class ConversationViewController: UIViewController {
+    
+    private lazy var db = Firestore.firestore()
+    private lazy var reference: CollectionReference = {
+        guard let channelIdentifier = channel?.identifier else { fatalError() }
+        print(db.collection("channels").document(channelIdentifier).documentID)
+        return db.collection("channels").document(channelIdentifier).collection("messages")
+    }()
+    var channel: Channel?
+//    var newMessage = Message(content: "", created: .init(), senderId: "", senderName: "Элла Чурсина")
+    
     
     // MARK: -TableViewData
     fileprivate var dataArray = MessageDataModel()
@@ -20,6 +31,10 @@ class ConversationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reference.addSnapshotListener { [weak self] snapshot, error in
+        }
+//        reference.addDocument(data: newMessage.toDict)
+        
         
         // MARK: -Navigate
         navigationController?.navigationBar.prefersLargeTitles = true

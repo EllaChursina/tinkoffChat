@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,10 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Logger.log(tag: .AppDelegate, message: "Application in the <inactive> state: \(#function)")
-//        let rootView: ConversationListViewController = ConversationListViewController()
-//        if let window = self.window{
-//            window.rootViewController = rootView
-//        }
+        
+        FirebaseApp.configure()
+
         return true
     }
     

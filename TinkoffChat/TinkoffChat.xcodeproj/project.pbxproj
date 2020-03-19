@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61EB8D0FC688C26163220DDC /* Pods_TinkoffChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF2D2A8B348872542DC29DEA /* Pods_TinkoffChat.framework */; };
+		CB54A884FABA0C43A38A8DF6 /* Pods_TinkoffChatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3928634B1096E925403C5E0B /* Pods_TinkoffChatTests.framework */; };
 		CD025D122407F39A00A6D502 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD025D112407F39A00A6D502 /* ConversationListViewController.swift */; };
 		CD025D1524080AA100A6D502 /* ConversationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD025D1324080AA100A6D502 /* ConversationListTableViewCell.swift */; };
 		CD025D1624080AA100A6D502 /* ConversationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD025D1424080AA100A6D502 /* ConversationListTableViewCell.xib */; };
@@ -21,6 +23,7 @@
 		CD025D35240A82D600A6D502 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD025D37240A82D600A6D502 /* Profile.storyboard */; };
 		CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */; };
 		CD025D3F240BD04400A6D502 /* ConversationMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD025D3D240BD04400A6D502 /* ConversationMessageCell.xib */; };
+		CD2304AF2423797E0069F35A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2304AE2423797E0069F35A /* Message.swift */; };
 		CD825C7823F956B0007750C1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD825C7723F956B0007750C1 /* Logger.swift */; };
 		CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84F8D9240073DD00901B63 /* ProfileViewController.swift */; };
 		CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */; };
@@ -34,6 +37,8 @@
 		CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */; };
 		CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */; };
 		CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43082241E936A00BAA76D /* FixedOrientation.swift */; };
+		CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC470A02422D7240023CE3F /* GoogleService-Info.plist */; };
+		CDC470A32422D8E10023CE3F /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC470A22422D8E10023CE3F /* Channel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3569D13F8D6DCB91BB57F867 /* Pods-TinkoffChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChat.debug.xcconfig"; path = "Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat.debug.xcconfig"; sourceTree = "<group>"; };
+		3928634B1096E925403C5E0B /* Pods_TinkoffChatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkoffChatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B462B6A19A885C2908D56A0 /* Pods-TinkoffChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChatTests.debug.xcconfig"; path = "Target Support Files/Pods-TinkoffChatTests/Pods-TinkoffChatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD025D112407F39A00A6D502 /* ConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		CD025D1324080AA100A6D502 /* ConversationListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListTableViewCell.swift; sourceTree = "<group>"; };
 		CD025D1424080AA100A6D502 /* ConversationListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListTableViewCell.xib; sourceTree = "<group>"; };
@@ -61,6 +69,7 @@
 		CD025D36240A82D600A6D502 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
 		CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessageCell.swift; sourceTree = "<group>"; };
 		CD025D3D240BD04400A6D502 /* ConversationMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationMessageCell.xib; sourceTree = "<group>"; };
+		CD2304AE2423797E0069F35A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CD825C7723F956B0007750C1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CD84F8D9240073DD00901B63 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CD87B5DF23F5C0D80014DD5B /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +87,11 @@
 		CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
 		CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOperations.swift; sourceTree = "<group>"; };
 		CDA43082241E936A00BAA76D /* FixedOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedOrientation.swift; sourceTree = "<group>"; };
+		CDC470A02422D7240023CE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CDC470A22422D8E10023CE3F /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		D73B0B6EDFD954464465B911 /* Pods-TinkoffChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChat.release.xcconfig"; path = "Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat.release.xcconfig"; sourceTree = "<group>"; };
+		DAFB9322580DC751F8297195 /* Pods-TinkoffChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChatTests.release.xcconfig"; path = "Target Support Files/Pods-TinkoffChatTests/Pods-TinkoffChatTests.release.xcconfig"; sourceTree = "<group>"; };
+		DF2D2A8B348872542DC29DEA /* Pods_TinkoffChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkoffChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61EB8D0FC688C26163220DDC /* Pods_TinkoffChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,12 +107,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB54A884FABA0C43A38A8DF6 /* Pods_TinkoffChatTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65B7587BFEF70CDB6412CF0C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF2D2A8B348872542DC29DEA /* Pods_TinkoffChat.framework */,
+				3928634B1096E925403C5E0B /* Pods_TinkoffChatTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4E7FD3E7D381125589F8C18 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3569D13F8D6DCB91BB57F867 /* Pods-TinkoffChat.debug.xcconfig */,
+				D73B0B6EDFD954464465B911 /* Pods-TinkoffChat.release.xcconfig */,
+				8B462B6A19A885C2908D56A0 /* Pods-TinkoffChatTests.debug.xcconfig */,
+				DAFB9322580DC751F8297195 /* Pods-TinkoffChatTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CD025D1E24081CEE00A6D502 /* ConversationList */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +181,8 @@
 				CD87B5E123F5C0D80014DD5B /* TinkoffChat */,
 				CD87B5FB23F5C0DB0014DD5B /* TinkoffChatTests */,
 				CD87B5E023F5C0D80014DD5B /* Products */,
+				B4E7FD3E7D381125589F8C18 /* Pods */,
+				65B7587BFEF70CDB6412CF0C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,12 +202,15 @@
 				CD025D1E24081CEE00A6D502 /* ConversationList */,
 				CD025D2024081D3900A6D502 /* Conversation */,
 				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
+				CDC470A02422D7240023CE3F /* GoogleService-Info.plist */,
 				CD025D3124098DCB00A6D502 /* ConfigurableView.swift */,
 				CD825C7723F956B0007750C1 /* Logger.swift */,
 				CD87B5EE23F5C0DB0014DD5B /* Assets.xcassets */,
 				CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */,
 				CD87B5F323F5C0DB0014DD5B /* Info.plist */,
 				CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */,
+				CDC470A22422D8E10023CE3F /* Channel.swift */,
+				CD2304AE2423797E0069F35A /* Message.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -190,9 +231,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD87B60123F5C0DB0014DD5B /* Build configuration list for PBXNativeTarget "TinkoffChat" */;
 			buildPhases = (
+				E7DFBCB43164AE37B32A9AEB /* [CP] Check Pods Manifest.lock */,
 				CD87B5DB23F5C0D70014DD5B /* Sources */,
 				CD87B5DC23F5C0D70014DD5B /* Frameworks */,
 				CD87B5DD23F5C0D70014DD5B /* Resources */,
+				7C747B76C493A52F6B839344 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -207,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD87B60423F5C0DB0014DD5B /* Build configuration list for PBXNativeTarget "TinkoffChatTests" */;
 			buildPhases = (
+				CF2CEC971C92AC07B5B774C0 /* [CP] Check Pods Manifest.lock */,
 				CD87B5F423F5C0DB0014DD5B /* Sources */,
 				CD87B5F523F5C0DB0014DD5B /* Frameworks */,
 				CD87B5F623F5C0DB0014DD5B /* Resources */,
@@ -265,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD025D35240A82D600A6D502 /* Profile.storyboard in Resources */,
+				CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */,
 				CD025D1B24081BB600A6D502 /* ConversationList.storyboard in Resources */,
 				CD025D1624080AA100A6D502 /* ConversationListTableViewCell.xib in Resources */,
 				CD025D242409740100A6D502 /* Conversation.storyboard in Resources */,
@@ -283,16 +328,82 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7C747B76C493A52F6B839344 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF2CEC971C92AC07B5B774C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TinkoffChatTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7DFBCB43164AE37B32A9AEB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TinkoffChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CD87B5DB23F5C0D70014DD5B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CD025D1524080AA100A6D502 /* ConversationListTableViewCell.swift in Sources */,
+				CDC470A32422D8E10023CE3F /* Channel.swift in Sources */,
 				CDA43079241C23E900BAA76D /* DataManagerProtocol.swift in Sources */,
 				CD025D34240993F000A6D502 /* MessageDataModel.swift in Sources */,
 				CD025D3024098BD000A6D502 /* MessageCellModel.swift in Sources */,
 				CD87B5ED23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld in Sources */,
+				CD2304AF2423797E0069F35A /* Message.swift in Sources */,
 				CD025D262409742800A6D502 /* ConversationViewController.swift in Sources */,
 				CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */,
 				CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */,
@@ -472,6 +583,7 @@
 		};
 		CD87B60223F5C0DB0014DD5B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3569D13F8D6DCB91BB57F867 /* Pods-TinkoffChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -482,7 +594,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ellachursina.TinkoffChat;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tcsbank.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -491,6 +603,7 @@
 		};
 		CD87B60323F5C0DB0014DD5B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D73B0B6EDFD954464465B911 /* Pods-TinkoffChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -501,7 +614,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ellachursina.TinkoffChat;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tcsbank.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -510,6 +623,7 @@
 		};
 		CD87B60523F5C0DB0014DD5B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B462B6A19A885C2908D56A0 /* Pods-TinkoffChatTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -532,6 +646,7 @@
 		};
 		CD87B60623F5C0DB0014DD5B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAFB9322580DC751F8297195 /* Pods-TinkoffChatTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
