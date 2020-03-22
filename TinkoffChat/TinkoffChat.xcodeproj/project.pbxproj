@@ -26,7 +26,8 @@
 		CD2304AF2423797E0069F35A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2304AE2423797E0069F35A /* Message.swift */; };
 		CD23E34A2426992400D203DD /* NewChannel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD23E3492426992400D203DD /* NewChannel.storyboard */; };
 		CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD23E34B2426995A00D203DD /* NewChannelViewController.swift */; };
-		CD825C7823F956B0007750C1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD825C7723F956B0007750C1 /* Logger.swift */; };
+		CD23E3502427C94600D203DD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD23E34F2427C94500D203DD /* FirebaseService.swift */; };
+		CD23E3562427E56800D203DD /* FirebaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD23E3552427E56800D203DD /* FirebaseProtocol.swift */; };
 		CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84F8D9240073DD00901B63 /* ProfileViewController.swift */; };
 		CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */; };
 		CD87B5ED23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */; };
@@ -74,7 +75,8 @@
 		CD2304AE2423797E0069F35A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CD23E3492426992400D203DD /* NewChannel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewChannel.storyboard; sourceTree = "<group>"; };
 		CD23E34B2426995A00D203DD /* NewChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChannelViewController.swift; sourceTree = "<group>"; };
-		CD825C7723F956B0007750C1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		CD23E34F2427C94500D203DD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		CD23E3552427E56800D203DD /* FirebaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProtocol.swift; sourceTree = "<group>"; };
 		CD84F8D9240073DD00901B63 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CD87B5DF23F5C0D80014DD5B /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -211,20 +213,14 @@
 		CD87B5E123F5C0D80014DD5B /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
-				CD025D1F24081D0C00A6D502 /* Profile */,
-				CD025D1E24081CEE00A6D502 /* ConversationList */,
-				CD025D2024081D3900A6D502 /* Conversation */,
-				CD23E348242698C500D203DD /* NewChannel */,
+				CDA431542427F22800022A89 /* Services */,
+				CDA431532427F21D00022A89 /* Presentation */,
 				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
 				CDC470A02422D7240023CE3F /* GoogleService-Info.plist */,
-				CD025D3124098DCB00A6D502 /* ConfigurableView.swift */,
-				CD825C7723F956B0007750C1 /* Logger.swift */,
 				CD87B5EE23F5C0DB0014DD5B /* Assets.xcassets */,
 				CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */,
 				CD87B5F323F5C0DB0014DD5B /* Info.plist */,
 				CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */,
-				CDC470A22422D8E10023CE3F /* Channel.swift */,
-				CD2304AE2423797E0069F35A /* Message.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -236,6 +232,29 @@
 				CD87B5FE23F5C0DB0014DD5B /* Info.plist */,
 			);
 			path = TinkoffChatTests;
+			sourceTree = "<group>";
+		};
+		CDA431532427F21D00022A89 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CD025D3124098DCB00A6D502 /* ConfigurableView.swift */,
+				CD025D1F24081D0C00A6D502 /* Profile */,
+				CD025D1E24081CEE00A6D502 /* ConversationList */,
+				CD025D2024081D3900A6D502 /* Conversation */,
+				CD23E348242698C500D203DD /* NewChannel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		CDA431542427F22800022A89 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CD23E3552427E56800D203DD /* FirebaseProtocol.swift */,
+				CD23E34F2427C94500D203DD /* FirebaseService.swift */,
+				CD2304AE2423797E0069F35A /* Message.swift */,
+				CDC470A22422D8E10023CE3F /* Channel.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,7 +441,9 @@
 				CD025D262409742800A6D502 /* ConversationViewController.swift in Sources */,
 				CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */,
 				CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */,
+				CD23E3502427C94600D203DD /* FirebaseService.swift in Sources */,
 				CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */,
+				CD23E3562427E56800D203DD /* FirebaseProtocol.swift in Sources */,
 				CD025D122407F39A00A6D502 /* ConversationListViewController.swift in Sources */,
 				CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */,
 				CDA4307D241C263D00BAA76D /* Profile.swift in Sources */,
@@ -433,7 +454,6 @@
 				CD025D182408127000A6D502 /* ConversationCellModel.swift in Sources */,
 				CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */,
 				CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */,
-				CD825C7823F956B0007750C1 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -53,6 +53,7 @@ class ConversationViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.conversationTableView.reloadData()
+            self.moveToLastComment()
         }
     }
     // MARK: -LIfecycle
@@ -87,6 +88,7 @@ class ConversationViewController: UIViewController {
             }
             DispatchQueue.main.async {
                 self?.conversationTableView.reloadData()
+                self?.moveToLastComment()
             }
         }
         
@@ -112,13 +114,6 @@ class ConversationViewController: UIViewController {
             self.conversationTableView.reloadData()
             self.moveToLastComment()
         }
-        
-//        let numberOfSections = self.conversationTableView.numberOfSections
-//        let numberOfRows = self.conversationTableView.numberOfRows(inSection: numberOfSections-1)
-//
-//        let indexPath = IndexPath(row: numberOfRows-1 , section: numberOfSections-1)
-//        self.conversationTableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.middle, animated: true)
-
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -155,7 +150,6 @@ class ConversationViewController: UIViewController {
             let pathToLastRow = NSIndexPath(row: lastRowIndex, section: lastSectionIndex)
             self.conversationTableView?.scrollToRow(at: pathToLastRow as IndexPath, at: UITableView.ScrollPosition.bottom, animated: true)
         }
-        
     }
 }
 
