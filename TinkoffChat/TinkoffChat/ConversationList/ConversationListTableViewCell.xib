@@ -23,8 +23,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTd-dR-uVh">
-                        <rect key="frame" x="262" y="8" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTd-dR-uVh">
+                        <rect key="frame" x="244" y="8" width="60" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -43,11 +43,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="OTd-dR-uVh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g6I-hE-KAt" secondAttribute="trailing" constant="8" id="3Fv-in-1PC"/>
+                    <constraint firstItem="OTd-dR-uVh" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="60:320" id="5XW-r7-6ht"/>
                     <constraint firstItem="8Rh-kV-um2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6dD-2w-qju"/>
                     <constraint firstAttribute="bottom" secondItem="8Rh-kV-um2" secondAttribute="bottom" constant="8" id="CUB-tF-atn"/>
                     <constraint firstItem="8Rh-kV-um2" firstAttribute="top" secondItem="g6I-hE-KAt" secondAttribute="bottom" constant="8" id="Lfs-aU-VGf"/>
                     <constraint firstItem="g6I-hE-KAt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="a0V-kL-A0y"/>
+                    <constraint firstItem="OTd-dR-uVh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g6I-hE-KAt" secondAttribute="trailing" constant="4" id="bI2-1N-7Im"/>
                     <constraint firstItem="FBa-l0-j4z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c0f-L1-Hzq"/>
                     <constraint firstAttribute="trailing" secondItem="FBa-l0-j4z" secondAttribute="trailing" constant="16" id="d8Z-rp-5cU"/>
                     <constraint firstItem="OTd-dR-uVh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="p8i-S8-joX"/>

@@ -47,10 +47,10 @@ class MessageDataModel {
                     "Okay, waht do you do then?",
                     "I'm a stay home and cry about my life "
         ]
-        for i in 0..<messages.count {
-            let message = MessageCellModel(text: messages[i])
-            messagesData.append(message)
-        }
+//        for i in 0..<messages.count {
+//            let message = MessageCellModel(text: messages[i])
+//            messagesData.append(message)
+//        }
     }
 }
 

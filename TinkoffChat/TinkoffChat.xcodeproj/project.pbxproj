@@ -24,6 +24,8 @@
 		CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */; };
 		CD025D3F240BD04400A6D502 /* ConversationMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD025D3D240BD04400A6D502 /* ConversationMessageCell.xib */; };
 		CD2304AF2423797E0069F35A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2304AE2423797E0069F35A /* Message.swift */; };
+		CD23E34A2426992400D203DD /* NewChannel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD23E3492426992400D203DD /* NewChannel.storyboard */; };
+		CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD23E34B2426995A00D203DD /* NewChannelViewController.swift */; };
 		CD825C7823F956B0007750C1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD825C7723F956B0007750C1 /* Logger.swift */; };
 		CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84F8D9240073DD00901B63 /* ProfileViewController.swift */; };
 		CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */; };
@@ -70,6 +72,8 @@
 		CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessageCell.swift; sourceTree = "<group>"; };
 		CD025D3D240BD04400A6D502 /* ConversationMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationMessageCell.xib; sourceTree = "<group>"; };
 		CD2304AE2423797E0069F35A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		CD23E3492426992400D203DD /* NewChannel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewChannel.storyboard; sourceTree = "<group>"; };
+		CD23E34B2426995A00D203DD /* NewChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChannelViewController.swift; sourceTree = "<group>"; };
 		CD825C7723F956B0007750C1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CD84F8D9240073DD00901B63 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CD87B5DF23F5C0D80014DD5B /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,12 +171,21 @@
 			children = (
 				CD025D232409740100A6D502 /* Conversation.storyboard */,
 				CD025D252409742800A6D502 /* ConversationViewController.swift */,
+				CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */,
 				CD025D2F24098BD000A6D502 /* MessageCellModel.swift */,
 				CD025D33240993F000A6D502 /* MessageDataModel.swift */,
-				CD025D3C240BD04400A6D502 /* ConversationMessageCell.swift */,
 				CD025D3D240BD04400A6D502 /* ConversationMessageCell.xib */,
 			);
 			path = Conversation;
+			sourceTree = "<group>";
+		};
+		CD23E348242698C500D203DD /* NewChannel */ = {
+			isa = PBXGroup;
+			children = (
+				CD23E3492426992400D203DD /* NewChannel.storyboard */,
+				CD23E34B2426995A00D203DD /* NewChannelViewController.swift */,
+			);
+			path = NewChannel;
 			sourceTree = "<group>";
 		};
 		CD87B5D623F5C0D70014DD5B = {
@@ -201,6 +214,7 @@
 				CD025D1F24081D0C00A6D502 /* Profile */,
 				CD025D1E24081CEE00A6D502 /* ConversationList */,
 				CD025D2024081D3900A6D502 /* Conversation */,
+				CD23E348242698C500D203DD /* NewChannel */,
 				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
 				CDC470A02422D7240023CE3F /* GoogleService-Info.plist */,
 				CD025D3124098DCB00A6D502 /* ConfigurableView.swift */,
@@ -310,6 +324,7 @@
 			files = (
 				CD025D35240A82D600A6D502 /* Profile.storyboard in Resources */,
 				CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */,
+				CD23E34A2426992400D203DD /* NewChannel.storyboard in Resources */,
 				CD025D1B24081BB600A6D502 /* ConversationList.storyboard in Resources */,
 				CD025D1624080AA100A6D502 /* ConversationListTableViewCell.xib in Resources */,
 				CD025D242409740100A6D502 /* Conversation.storyboard in Resources */,
@@ -406,6 +421,7 @@
 				CD2304AF2423797E0069F35A /* Message.swift in Sources */,
 				CD025D262409742800A6D502 /* ConversationViewController.swift in Sources */,
 				CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */,
+				CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */,
 				CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */,
 				CD025D122407F39A00A6D502 /* ConversationListViewController.swift in Sources */,
 				CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */,

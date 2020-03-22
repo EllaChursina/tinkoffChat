@@ -10,8 +10,21 @@ import UIKit
 
 class ConversationMessageCell: UITableViewCell, ConfigurableView {
     
+    private static let todayDateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    private static let otherDayDateFormatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM HH:mm"
+        return formatter
+    }()
+    
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var backgroundMessageView: UIView!
+    @IBOutlet private weak var senderNameLabel: UILabel!
+    @IBOutlet private weak var cratedMessageDate: UILabel!
     
     @IBOutlet private var leftMessageConstraint: NSLayoutConstraint!
     @IBOutlet private var rightMessageConstraint: NSLayoutConstraint!
@@ -29,6 +42,20 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
         }
     }
     
+    var date: Date? {
+        didSet {
+            guard let date = date else {
+                cratedMessageDate.text = ""
+                return
+            }
+            if Calendar.current.isDateInToday(date) {
+                cratedMessageDate.text = ConversationMessageCell.todayDateFormatter.string(from: date)
+            } else {
+                cratedMessageDate.text = ConversationMessageCell.otherDayDateFormatter.string(from: date)
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundMessageView.layer.cornerRadius = 8
@@ -42,12 +69,14 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
         messageLabel.text = ""
         leftMessageConstraint.isActive = true
         rightMessageConstraint.isActive = true 
-        print("prepareForReuse")
         
     }
     
     func configure(with model: MessageCellModel) {
         messageLabel.text = model.text
+        senderNameLabel.text = model.name
+        date = model.date
+        
     }
     
 }

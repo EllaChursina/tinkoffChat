@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="laP-aA-Tqo">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fl8-cu-I3c">
@@ -36,6 +36,9 @@
                                             <constraint firstAttribute="width" secondItem="PCC-la-S3g" secondAttribute="height" multiplier="22:22" id="Hlt-fp-5HK"/>
                                         </constraints>
                                         <state key="normal" image="paper-plane"/>
+                                        <connections>
+                                            <action selector="sendNewMessage:" destination="k6P-b4-zr4" eventType="touchUpInside" id="wnf-eF-lWO"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-MF-RGL">
                                         <rect key="frame" x="48" y="8" width="224" height="34"/>
@@ -68,12 +71,13 @@
                             <constraint firstItem="Fl8-cu-I3c" firstAttribute="leading" secondItem="XE5-KI-fG9" secondAttribute="leading" id="ZDu-Rf-vwM"/>
                             <constraint firstItem="XE5-KI-fG9" firstAttribute="trailing" secondItem="laP-aA-Tqo" secondAttribute="trailing" id="e5N-t8-Bb7"/>
                             <constraint firstItem="XE5-KI-fG9" firstAttribute="trailing" secondItem="Fl8-cu-I3c" secondAttribute="trailing" id="eIA-UD-3Uc"/>
-                            <constraint firstItem="laP-aA-Tqo" firstAttribute="bottom" secondItem="Fl8-cu-I3c" secondAttribute="bottom" id="rZN-R5-pkR"/>
+                            <constraint firstItem="Fl8-cu-I3c" firstAttribute="top" secondItem="laP-aA-Tqo" secondAttribute="bottom" id="stQ-3l-6dl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XE5-KI-fG9"/>
                     </view>
                     <connections>
                         <outlet property="conversationTableView" destination="laP-aA-Tqo" id="Vir-dR-fsd"/>
+                        <outlet property="newMessageTextField" destination="tuo-MF-RGL" id="5ex-9l-8gX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eu-Sv-PEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

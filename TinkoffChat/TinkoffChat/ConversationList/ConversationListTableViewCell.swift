@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Firebase
 
 class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     
-    static let identifier = String(describing: ConversationListTableViewCell.self)
+    static let cellIdentifier = String(describing: ConversationListTableViewCell.self)
+    
     private static let todayDateFormatter : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
+    
     private static let otherDayDateFormatter : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM"
@@ -48,13 +51,26 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
         }
     }
     
+    
+    var lastMessage: String? {
+        didSet {
+            if let lastMessage = lastMessage {
+                lastMessageTextLabel.text = lastMessage
+            } else {
+                lastMessageTextLabel.font = UIFont(name: "Arial", size: 15)
+                lastMessageTextLabel.textColor = UIColor.lightGray
+                lastMessageTextLabel.text = "No messages yet"
+            }
+        }
+    }
+    
     var date: Date? {
         didSet {
             guard let date = date else {
                 lastMessageTimeAndDateLabel.text = ""
                 return
             }
-            if NSCalendar.current.isDateInToday(date) {
+            if Calendar.current.isDateInToday(date) {
                 lastMessageTimeAndDateLabel.text = ConversationListTableViewCell.todayDateFormatter.string(from: date)
             } else {
                 lastMessageTimeAndDateLabel.text = ConversationListTableViewCell.otherDayDateFormatter.string(from: date)
@@ -86,6 +102,7 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
         }
     }
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

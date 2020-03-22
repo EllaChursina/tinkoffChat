@@ -7,10 +7,21 @@
 //
 
 import Foundation
+import Firebase
 
 struct Channel {
     let identifier: String
     let name: String
     let lastMessage: String
+    let lastActivity: Date 
+}
+
+extension Channel {
+    var toDict: [String: Any] {
+        return ["identifier": identifier,
+                "name": name,
+                "lastMessage": lastMessage,
+                "lastActivity": Timestamp(date: lastActivity)]
+    }
 }
 
