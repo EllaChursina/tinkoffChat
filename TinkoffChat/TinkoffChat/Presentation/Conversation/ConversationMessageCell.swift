@@ -10,21 +10,24 @@ import UIKit
 
 class ConversationMessageCell: UITableViewCell, ConfigurableView {
     
+    // MARK: -Date Formatters
     private static let todayDateFormatter : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
+    
     private static let otherDayDateFormatter : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM HH:mm"
         return formatter
     }()
     
+    // MARK: -UI
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var backgroundMessageView: UIView!
     @IBOutlet private weak var senderNameLabel: UILabel!
-    @IBOutlet private weak var cratedMessageDate: UILabel!
+    @IBOutlet private weak var createdMessageDate: UILabel!
     
     @IBOutlet private var leftMessageConstraint: NSLayoutConstraint!
     @IBOutlet private var rightMessageConstraint: NSLayoutConstraint!
@@ -35,9 +38,16 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
             if messageIsIncoming {
                 leftMessageConstraint.constant = 16
                 rightMessageConstraint.isActive = false
+                senderNameLabel.textAlignment = .left
+                messageLabel.textAlignment = .left
+                createdMessageDate.textAlignment = .right
+
             } else {
                 leftMessageConstraint.isActive = false
                 rightMessageConstraint.constant = 16
+                senderNameLabel.textAlignment = .right
+                messageLabel.textAlignment = .right
+                createdMessageDate.textAlignment = .left
             }
         }
     }
@@ -45,13 +55,13 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
     var date: Date? {
         didSet {
             guard let date = date else {
-                cratedMessageDate.text = ""
+                createdMessageDate.text = ""
                 return
             }
             if Calendar.current.isDateInToday(date) {
-                cratedMessageDate.text = ConversationMessageCell.todayDateFormatter.string(from: date)
+                createdMessageDate.text = ConversationMessageCell.todayDateFormatter.string(from: date)
             } else {
-                cratedMessageDate.text = ConversationMessageCell.otherDayDateFormatter.string(from: date)
+                createdMessageDate.text = ConversationMessageCell.otherDayDateFormatter.string(from: date)
             }
         }
     }
@@ -69,7 +79,9 @@ class ConversationMessageCell: UITableViewCell, ConfigurableView {
         messageLabel.text = ""
         leftMessageConstraint.isActive = true
         rightMessageConstraint.isActive = true 
-        
+        senderNameLabel.textAlignment = .left
+        messageLabel.textAlignment = .left
+        createdMessageDate.textAlignment = .right
     }
     
     func configure(with model: MessageCellModel) {

@@ -11,13 +11,13 @@ import Firebase
 
 class ConversationListViewController: UIViewController {
     
-    private lazy var db = Firestore.firestore()
-    private lazy var reference = db.collection("channels")
+    // MARK: -Firebase
+    private lazy var firebaseService = FirebaseChatService.shared
+    private lazy var conversationProtocol: ConversationDataProviderProtocol = firebaseService
 
-    // MARK: -TableViewData
-    
-    fileprivate var dataDictionary = [String: [Channel]]()
+    // MARK: -UITableViewData
     fileprivate var tableSectionTitles = ["Active", "Not Active"]
+    var dataDictionary = [String: [Channel]]()
     
     // MARK: -UI
     @IBOutlet private weak var conversationListTableView: UITableView!
@@ -26,59 +26,9 @@ class ConversationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: -Loading firebase data
         dataDictionary = [String: [Channel]]()
-        
-        reference.addSnapshotListener { [weak self] snapshot, error in
-            guard let snapshot = snapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            
-            let channels = snapshot.documents
-            self?.dataDictionary.removeAll()
-            
-            for channel in channels {
-                print("\(channel.data())")
-                let identifier = channel.documentID
-                let data = channel.data()
-                
-                if let name = data["name"] as? String,
-                   let lastMessage = data["lastMessage"] as? String,
-                   let stamp = data["lastActivity"] as? Timestamp {
-                    
-                    let lastActivity = stamp.dateValue()
-                    let timeInterval: TimeInterval = 600.0
-                    var timeInvervalLastActivity = lastActivity.timeIntervalSinceNow
-                    timeInvervalLastActivity.negate()
-                    
-                    let channelKey:String
-                    let newChannel = Channel(identifier: identifier, name: name, lastMessage: lastMessage, lastActivity: lastActivity)
-                    if timeInvervalLastActivity <= timeInterval {
-                        channelKey = "Active"} else {
-                        channelKey = "Not Active"
-                    }
-                    
-                    if var channelValue = self?.dataDictionary[channelKey] {
-                        channelValue.append(newChannel)
-                        self?.dataDictionary[channelKey] = channelValue
-                    } else {
-                        self?.dataDictionary[channelKey] = [newChannel]
-                    }
-                    
-                } else {continue}
-                if let activeChannelArray = self?.dataDictionary["Active"]{
-                    self?.dataDictionary["Active"] = activeChannelArray.sorted(by: {$0.lastActivity > $1.lastActivity})
-                }
-                
-                if let notActiveChannelArray = self?.dataDictionary["Not Active"]{
-                    self?.dataDictionary["Not Active"] = notActiveChannelArray.sorted(by: {$0.lastActivity > $1.lastActivity})
-                }
-            }
-            DispatchQueue.main.async {
-                self?.conversationListTableView.reloadData()
-            }
-        }
-
+        conversationProtocol.syncConversationsData(reference: firebaseService.channelReference, viewController: self, tableView: conversationListTableView)
         
         //MARK: -Navigate
         navigationItem.title = "Tinkoff Chat"
@@ -98,7 +48,7 @@ class ConversationListViewController: UIViewController {
         conversationListTableView.estimatedRowHeight = 66
     }
 
-    
+    //MARK: -Tabbar buttons methods
     @objc private func goToProfileViewController() {
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         if let vc = storyboard.instantiateInitialViewController() {
@@ -163,7 +113,6 @@ extension ConversationListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableSectionTitles[section]
     }
-    
 }
 
 // MARK: - UITableViewDelegate

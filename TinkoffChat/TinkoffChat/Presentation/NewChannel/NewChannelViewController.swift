@@ -11,49 +11,35 @@ import Firebase
 
 class NewChannelViewController: UIViewController {
     
-    private lazy var db = Firestore.firestore()
-    private lazy var reference = db.collection("channels")
-
+    // MARK: -Firebase
+    private lazy var firebaseService = FirebaseChatService.shared
+    private lazy var conversationProtocol: ConversationDataProviderProtocol = firebaseService
+    
+    // MARK: -UI
     @IBOutlet weak var newChannelButton: UIButton!
     @IBOutlet weak var newChannelTextField: UITextField!
     
+    // MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         newChannelButton.layer.cornerRadius = 10
         newChannelButton.layer.borderWidth = 1
         newChannelButton.layer.borderColor = UIColor.black.cgColor
-        
-        
-        
-
-        // Do any additional setup after loading the view.
     }
     
-   
-    
+    // MARK: -Action
     @IBAction func createNewChannelButton(_ sender: UIButton) {
         print("try create channel")
-        guard let content = newChannelTextField.text else {print("No new channels")
-            return}
-        let newChannel = Channel(identifier: String(Int.random(in: 1...1000)), name: content, lastMessage: "El create new channel", lastActivity: Date())
-        reference.addDocument(data: newChannel.toDict)
+        conversationProtocol.addNewConversationsDocument(reference: firebaseService.channelReference, viewController: self)
     }
     
     // MARK: -Navigation
-    
     @IBAction private func tapCloseButtonNewChannel (_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
-    */
-
 }

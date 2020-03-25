@@ -195,7 +195,6 @@ class ProfileViewController: UIViewController {
         if let newUsersDescription = sender.text {
             self.profile?.usersDescriptionChanged = (newUsersDescription != (self.profile?.usersDescription ?? ""))
             self.enabledSaveButtonsState(enabled: self.dataWasChanged)
-            
         }
      }
     

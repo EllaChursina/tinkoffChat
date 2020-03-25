@@ -11,8 +11,10 @@ import Firebase
 
 class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
     
+    // MARK: -UITableViewCell identifier
     static let cellIdentifier = String(describing: ConversationListTableViewCell.self)
     
+    // MARK: -Date Formatters
     private static let todayDateFormatter : DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
@@ -24,10 +26,8 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
         formatter.dateFormat = "dd MMMM"
         return formatter
     }()
-    
 
     // MARK: -UI
-
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var lastMessageTextLabel: UILabel!
     @IBOutlet private weak var lastMessageTimeAndDateLabel: UILabel!
@@ -50,7 +50,6 @@ class ConversationListTableViewCell: UITableViewCell, ConfigurableView {
             }
         }
     }
-    
     
     var lastMessage: String? {
         didSet {
