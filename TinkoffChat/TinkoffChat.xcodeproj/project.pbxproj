@@ -31,16 +31,14 @@
 		CD87B5F223F5C0DB0014DD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */; };
 		CD87B5FD23F5C0DB0014DD5B /* TinkoffChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5FC23F5C0DB0014DD5B /* TinkoffChatTests.swift */; };
 		CDA43079241C23E900BAA76D /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43078241C23E900BAA76D /* DataManagerProtocol.swift */; };
-		CDA4307B241C24C200BAA76D /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307A241C24C200BAA76D /* GCDDataManager.swift */; };
 		CDA4307D241C263D00BAA76D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307C241C263D00BAA76D /* Profile.swift */; };
-		CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */; };
-		CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */; };
 		CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43082241E936A00BAA76D /* FixedOrientation.swift */; };
 		CDA43156242A8F3D00022A89 /* FirebaseChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43155242A8F3D00022A89 /* FirebaseChatService.swift */; };
 		CDA43158242A91C800022A89 /* FirebaseMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43157242A91C800022A89 /* FirebaseMessageService.swift */; };
 		CDA4315A242BD0D100022A89 /* ConversationDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43159242BD0D000022A89 /* ConversationDataProviderProtocol.swift */; };
-		CDA4315E242BD41C00022A89 /* ProfileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4315D242BD41C00022A89 /* ProfileHandler.swift */; };
 		CDA43163242BD57E00022A89 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA43162242BD57E00022A89 /* Default-568h@2x.png */; };
+		CDC45477242E793300769637 /* CoreDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC45476242E793300769637 /* CoreDataStorageManager.swift */; };
+		CDC45479242E79FC00769637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC45478242E79FC00769637 /* CoreDataStack.swift */; };
 		CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC470A02422D7240023CE3F /* GoogleService-Info.plist */; };
 		CDC470A32422D8E10023CE3F /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC470A22422D8E10023CE3F /* Channel.swift */; };
 /* End PBXBuildFile section */
@@ -85,16 +83,14 @@
 		CD87B5FC23F5C0DB0014DD5B /* TinkoffChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkoffChatTests.swift; sourceTree = "<group>"; };
 		CD87B5FE23F5C0DB0014DD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDA43078241C23E900BAA76D /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
-		CDA4307A241C24C200BAA76D /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		CDA4307C241C263D00BAA76D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
-		CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOperations.swift; sourceTree = "<group>"; };
 		CDA43082241E936A00BAA76D /* FixedOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedOrientation.swift; sourceTree = "<group>"; };
 		CDA43155242A8F3D00022A89 /* FirebaseChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatService.swift; sourceTree = "<group>"; };
 		CDA43157242A91C800022A89 /* FirebaseMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageService.swift; sourceTree = "<group>"; };
 		CDA43159242BD0D000022A89 /* ConversationDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataProviderProtocol.swift; sourceTree = "<group>"; };
-		CDA4315D242BD41C00022A89 /* ProfileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHandler.swift; sourceTree = "<group>"; };
 		CDA43162242BD57E00022A89 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CDC45476242E793300769637 /* CoreDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageManager.swift; sourceTree = "<group>"; };
+		CDC45478242E79FC00769637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CDC470A02422D7240023CE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TinkoffChat/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CDC470A22422D8E10023CE3F /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		D73B0B6EDFD954464465B911 /* Pods-TinkoffChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChat.release.xcconfig"; path = "Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat.release.xcconfig"; sourceTree = "<group>"; };
@@ -241,6 +237,7 @@
 		CDA431542427F22800022A89 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CDC45475242E78C700769637 /* CoreData */,
 				CDA43160242BD50A00022A89 /* Display */,
 				CDA4315F242BD4A300022A89 /* Models */,
 				CDA4315C242BD3D600022A89 /* DataManager */,
@@ -263,10 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				CDA43078241C23E900BAA76D /* DataManagerProtocol.swift */,
-				CDA4307A241C24C200BAA76D /* GCDDataManager.swift */,
-				CDA4307E241D39DC00BAA76D /* OperationDataManager.swift */,
-				CDA4315D242BD41C00022A89 /* ProfileHandler.swift */,
-				CDA43080241D3AFB00BAA76D /* ProfileOperations.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -290,6 +283,15 @@
 				CD025D3124098DCB00A6D502 /* ConfigurableView.swift */,
 			);
 			path = Display;
+			sourceTree = "<group>";
+		};
+		CDC45475242E78C700769637 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CDC45476242E793300769637 /* CoreDataStorageManager.swift */,
+				CDC45478242E79FC00769637 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,19 +479,17 @@
 				CD2304AF2423797E0069F35A /* Message.swift in Sources */,
 				CD025D262409742800A6D502 /* ConversationViewController.swift in Sources */,
 				CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */,
+				CDC45477242E793300769637 /* CoreDataStorageManager.swift in Sources */,
 				CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */,
-				CDA4315E242BD41C00022A89 /* ProfileHandler.swift in Sources */,
-				CDA43081241D3AFB00BAA76D /* ProfileOperations.swift in Sources */,
 				CD025D122407F39A00A6D502 /* ConversationListViewController.swift in Sources */,
 				CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */,
 				CDA4307D241C263D00BAA76D /* Profile.swift in Sources */,
 				CD025D3224098DCB00A6D502 /* ConfigurableView.swift in Sources */,
 				CDA43158242A91C800022A89 /* FirebaseMessageService.swift in Sources */,
 				CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */,
-				CDA4307B241C24C200BAA76D /* GCDDataManager.swift in Sources */,
+				CDC45479242E79FC00769637 /* CoreDataStack.swift in Sources */,
 				CD025D182408127000A6D502 /* ConversationCellModel.swift in Sources */,
 				CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */,
-				CDA4307F241D39DC00BAA76D /* OperationDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

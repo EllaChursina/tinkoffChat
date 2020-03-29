@@ -9,6 +9,6 @@
 import Foundation
 
 protocol DataManagerProtocol {
-    func saveProfile(profile: Profile, completion: @escaping (_ success: Bool) -> ())
-    func loadProfile(completion: @escaping (_ profile: Profile?) -> ())
+    func saveProfile(_ profile: Profile, completion: @escaping (Error?) -> ())
+    func loadProfile(completion: @escaping (Profile?, Error?) -> ())
 }

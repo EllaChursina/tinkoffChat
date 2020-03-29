@@ -14,10 +14,6 @@ class Profile {
     var usersDescription: String?
     var avatar: UIImage?
     
-    var usernameChanged = false
-    var usersDescriptionChanged = false
-    var imageChanged = false
-    
     init() {}
     
     init(username: String?, usersDescription: String?, avatar: UIImage?) {

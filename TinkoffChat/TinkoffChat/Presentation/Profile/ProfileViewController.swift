@@ -18,12 +18,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var editButton: UIButton!
     @IBOutlet private weak var closeProfileButton: UIBarButtonItem!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var saveButton: UIButton!
     
     // MARK: -Edit mode UI
     @IBOutlet private weak var usernameTextField: UITextField!
     @IBOutlet private weak var usersDescriptionTextField: UITextField!
-    @IBOutlet private weak var gcdButton: UIButton!
-    @IBOutlet private weak var operationButton: UIButton!
     
     // MARK: -Models
     public var imagePickerController: UIImagePickerController?
@@ -42,21 +41,14 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    private var profile: Profile?
-    private var dataManager: DataManagerProtocol? = GCDDataManager()
+    private var profile = Profile()
+    var dataManager: DataManagerProtocol = CoreDataStorageManager()
     
     // MARK: -Editing Dependencies
-    var editMode = false {
-        didSet {
-            self.setEditingState(editing: editMode)
-        }
-    }
-    
-    private var saveChanges: ( () -> Void )?
     
     private var dataWasChanged: Bool {
         get {
-            return profile?.usernameChanged ?? false || profile?.usersDescriptionChanged ?? false || profile?.imageChanged ?? false
+            return self.profile.username != usernameTextField.text || self.profile.usersDescription != usersDescriptionTextField.text || profile.avatar != profileImageView.image
         }
     }
     
@@ -67,7 +59,6 @@ class ProfileViewController: UIViewController {
         
         print("\(#function) called. EditButton frame is \(editButton.frame) at the moment")
         
-        
         profileImageView.layer.cornerRadius = 40
         setProfileImageButton.layer.cornerRadius = 40
         
@@ -75,14 +66,47 @@ class ProfileViewController: UIViewController {
         editButton.layer.borderWidth = 1
         editButton.layer.borderColor = UIColor.black.cgColor
         
-        gcdButton.layer.cornerRadius = 10
-        operationButton.layer.cornerRadius = 10
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 1
+        saveButton.layer.borderColor = UIColor.black.cgColor
         
+        activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
-        editMode = false
-        loadData()
-
+        usernameTextField.delegate = self
+        usernameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        usersDescriptionTextField.delegate = self
+        usersDescriptionTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        userIsInEditingMode = false
+        
+        dataManager.loadProfile { [weak self] (profile, error) in
+            DispatchQueue.main.async {
+                guard error == nil, let profile = profile else {
+                    self?.activityIndicator.stopAnimating()
+                    return
+                }
+                
+                self?.profile = profile
+                
+                if let username = profile.username {
+                    self?.usernameLabel.text = username
+                    self?.usernameTextField.text = username
+                }
+                
+                if let usersDescriprion = profile.usersDescription {
+                    self?.usersDescriptionLabel.text = usersDescriprion
+                    self?.usersDescriptionTextField.text = usersDescriprion
+                }
+                
+                if let avatar = profile.avatar {
+                    self?.selectedImage = avatar
+                }
+                
+                self?.activityIndicator.stopAnimating()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,67 +160,56 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction private func editProfileButton(_ sender: Any) {
-        editMode = true
-        enabledSaveButtonsState(enabled: false)
-    }
-    
-    
-    @IBAction func saveButtonsTapped(_ sender: UIButton) {
-        usernameTextField.resignFirstResponder()
-        usersDescriptionTextField.resignFirstResponder()
+        userIsInEditingMode = true
+        handleSaveButtonStyle(canSave: false)
         
-        saveChanges = {
-            self.activityIndicator.startAnimating()
-            self.enabledSaveButtonsState(enabled: false)
-            
-            if let usernameChanged = self.profile?.usernameChanged, usernameChanged == true {
-                self.profile?.username = self.usernameTextField.text
-            }
-            if let usersDescriptionChanged = self.profile?.usersDescriptionChanged, usersDescriptionChanged == true {
-                self.profile?.usersDescription = self.usersDescriptionTextField.text
-            }
-            if let imageChanged = self.profile?.imageChanged, imageChanged == true {
-                self.profile?.avatar = self.profileImageView.image
-            }
-            
-            let buttonTitle = sender.titleLabel?.text
-            
-            if buttonTitle == "GCD" {
-                self.dataManager = GCDDataManager()
+        editButton.isHidden = true
+        saveButton.isHidden = false
+        
+        usernameTextField.isUserInteractionEnabled = true
+        usernameTextField.layer.borderColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0).cgColor
+        
+        usersDescriptionTextField.isUserInteractionEnabled = true
+        usersDescriptionTextField.layer.borderColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0).cgColor
+    }
+    
+    
+    @IBAction func saveButtonsTapped(_ sender: Any) {
+        activityIndicator.startAnimating()
+        
+        view.endEditing(true)
+        
+        handleSaveButtonStyle(canSave: false)
+        
+        if usernameTextField.text != profile.username {
+            profile.username = usernameTextField.text
+            usernameLabel.text = usernameTextField.text
+        }
+        
+        if usersDescriptionTextField.text != profile.usersDescription {
+            profile.usersDescription = usersDescriptionTextField.text
+            usersDescriptionLabel.text = usersDescriptionTextField.text
+        }
+        
+        if profileImageView.image != profile.avatar {
+            profile.avatar = profileImageView.image
+        }
+        
+        dataManager.saveProfile(profile) { [weak self] error in
+            if error == nil {
+                self?.successfulSaveAlert()
             } else {
-                self.dataManager = OperationDataManager()
+                self?.errorSaveAlert()
             }
+            self?.activityIndicator.stopAnimating()
+            self?.saveButton.isHidden = true
+            self?.editButton.isHidden = false
             
-            guard let userProfile = self.profile else {return}
-            self.dataManager?.saveProfile(profile: userProfile, completion: { (saveSucceeded : Bool) in
-                self.activityIndicator.stopAnimating()
-                if saveSucceeded {
-                    self.successfulSaveAlert()
-                    self.loadData()
-                } else {
-                    self.errorSaveAlert()
-                }
-                
-                self.enabledSaveButtonsState(enabled: true)
-                self.editMode = !saveSucceeded
-            })
+            self?.usernameTextField.layer.borderColor = UIColor.white.cgColor
+            self?.usersDescriptionTextField.layer.borderColor = UIColor.white.cgColor
         }
-        self.saveChanges?()
+        userIsInEditingMode = false
     }
-    
-    @IBAction func usernameChangedAfterEditing(_ sender: UITextField) {
-        if let newName = sender.text {
-            self.profile?.usernameChanged = (newName != (self.profile?.username ?? ""))
-            self.enabledSaveButtonsState(enabled: self.dataWasChanged)
-        }
-    }
-    
-    @IBAction func usersDescriptionChangedByEditing(_ sender: UITextField) {
-        if let newUsersDescription = sender.text {
-            self.profile?.usersDescriptionChanged = (newUsersDescription != (self.profile?.usersDescription ?? ""))
-            self.enabledSaveButtonsState(enabled: self.dataWasChanged)
-        }
-     }
     
     //MARK: - Photo
     
@@ -222,9 +235,9 @@ class ProfileViewController: UIViewController {
         controller.delegate = self
         controller.allowsEditing = false
         controller.sourceType = source
-            if source == .camera {
-                controller.cameraCaptureMode = .photo
-                controller.modalPresentationStyle = .fullScreen
+        if source == .camera {
+            controller.cameraCaptureMode = .photo
+            controller.modalPresentationStyle = .fullScreen
         }
         self.present(controller, animated: true)
     }
@@ -237,40 +250,26 @@ class ProfileViewController: UIViewController {
     }
     
     func showGalleryIsNotAvailableAlert() {
-           let noGalleryAlertController = UIAlertController(title: "No camera", message: "The camera is not available on this device", preferredStyle: .alert)
-           let okCameraButton = UIAlertAction(title: "OK", style: .default, handler: nil)
-           noGalleryAlertController.addAction(okCameraButton)
-           present(noGalleryAlertController, animated: true)
+        let noGalleryAlertController = UIAlertController(title: "No camera", message: "The camera is not available on this device", preferredStyle: .alert)
+        let okCameraButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        noGalleryAlertController.addAction(okCameraButton)
+        present(noGalleryAlertController, animated: true)
     }
     
     //MARK: - Editing
     
-    private func loadData() {
-        dataManager?.loadProfile(completion: { (profile) in
-            if let userProfile = profile {
-                self.profile = userProfile
-            }
-            
-            self.profileImageView.image = profile?.avatar ?? UIImage.init(named: "placeholder-user")
-            self.profileImageView.contentMode = .scaleAspectFill
-            self.usernameLabel.text = profile?.username ?? "Enter your name"
-            self.usersDescriptionLabel.text = profile?.usersDescription ?? "Enter your bio"
-            self.usernameTextField.text = self.usernameLabel.text
-            self.usersDescriptionTextField.text = self.usersDescriptionLabel.text
-            
-            self.profile = Profile(username: self.usernameLabel.text, usersDescription: self.usersDescriptionLabel.text, avatar: self.profileImageView.image)
-        })
+    
+    
+    private var userIsInEditingMode = false {
+        didSet {
+            setEditingState(editing: userIsInEditingMode)
+        }
     }
     
     private func setEditingState(editing: Bool) {
-        if(editing) {
-            usernameLabel.text = "Enter your name"
-            usersDescriptionLabel.text = "Enter your bio"
-        }
         
         editButton.isHidden = editing
-        gcdButton.isHidden = !editing
-        operationButton.isHidden = !editing
+        saveButton.isHidden = !editing
         setProfileImageButton.isHidden = !editing
         
         usernameTextField.isHidden = editing
@@ -280,10 +279,15 @@ class ProfileViewController: UIViewController {
         usersDescriptionTextField.isHidden = !editing
     }
     
-    private func enabledSaveButtonsState(enabled: Bool) {
-        gcdButton.isEnabled = enabled
-        operationButton.isEnabled = enabled
+    func handleSaveButtonStyle(canSave: Bool) {
+        if (canSave) {
+            saveButton.alpha = 1
+        } else {
+            saveButton.alpha = 0.2
+        }
+        saveButton.isEnabled = canSave
     }
+    
     
     private func successfulSaveAlert() {
         let alertController = UIAlertController(title: "Changes saved successfully", message: nil, preferredStyle: .alert)
@@ -296,7 +300,7 @@ class ProfileViewController: UIViewController {
         let alertController = UIAlertController(title: "Save Error", message: nil, preferredStyle: .alert)
         let okErrorButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         let retrySaveButton = UIAlertAction(title: "Retry", style: .default) { action in
-            self.saveChanges?()
+            self.saveButtonsTapped(self)
         }
         alertController.addAction(okErrorButton)
         alertController.addAction(retrySaveButton)
@@ -307,10 +311,9 @@ class ProfileViewController: UIViewController {
     
     @objc private func keyboardWillSnow(notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-             let keyboardHeight = keyboardFrame.cgRectValue.height
-             self.view.frame.origin.y = -keyboardHeight + 16
-             print("keyboard height is:" , keyboardHeight)
-           }
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            self.view.frame.origin.y = -keyboardHeight + 82
+        }
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
@@ -333,14 +336,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         guard let fixedOrientationImage = image.fixedOrientation() else {return}
         self.selectedImage = fixedOrientationImage
         
-        if let savedImage = self.profile?.avatar {
-            guard let newImage = fixedOrientationImage.pngData(),
-                  let oldImage = savedImage.pngData() else {return}
-            profile?.imageChanged = !newImage.elementsEqual(oldImage)
-        } else {
-            profile?.imageChanged = true
-        }
-        enabledSaveButtonsState(enabled: self.dataWasChanged)
+        handleSaveButtonStyle(canSave: dataWasChanged)
         
         picker.dismiss(animated: true) {
             picker.delegate = nil
@@ -353,5 +349,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             picker.delegate = nil
             self.imagePickerController = nil
         }
+    }
+}
+
+// MARK: -UITextFieldDelegate
+
+extension ProfileViewController: UITextFieldDelegate {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        handleSaveButtonStyle(canSave: dataWasChanged)
     }
 }
