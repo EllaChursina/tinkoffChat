@@ -11,7 +11,9 @@ import Firebase
 
 protocol ConversationDataProviderProtocol {
     
-    func syncConversationsData(reference: CollectionReference, viewController: UIViewController?, tableView: UITableView?)
+    associatedtype DataModel
     
-    func addNewConversationsDocument(reference: CollectionReference, viewController: UIViewController?)
+    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [DataModel]) -> Void)
+    
+    func addNewConversationsDocument(reference: CollectionReference, content: String)
 }

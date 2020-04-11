@@ -13,22 +13,35 @@ class ConversationListViewController: UIViewController {
     
     // MARK: -Firebase
     private lazy var firebaseService = FirebaseChatService.shared
-    private lazy var conversationProtocol: ConversationDataProviderProtocol = firebaseService
+    
 
     // MARK: -UITableViewData
     fileprivate var tableSectionTitles = ["Active", "Not Active"]
-    var dataDictionary = [String: [Channel]]()
-    
+    var dataArray = [Channel?](){
+        didSet {
+            activeChannelsArray = dataArray.filter({ return $0?.isActive == true})
+            notActiveChannelsArray = dataArray.filter({ return $0?.isActive == false})
+        }
+    }
+    var activeChannelsArray = [Channel?]()
+    var notActiveChannelsArray = [Channel?]()
     // MARK: -UI
     @IBOutlet private weak var conversationListTableView: UITableView!
     
     // MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dataArray = [Channel?]()
         // MARK: -Loading firebase data
-        dataDictionary = [String: [Channel]]()
-        conversationProtocol.syncConversationsData(reference: firebaseService.channelReference, viewController: self, tableView: conversationListTableView)
+        firebaseService.syncConversationsData(reference: firebaseService.channelReference) { (dataArray) in
+            print(dataArray)
+            self.dataArray.removeAll()
+            self.dataArray = dataArray
+            DispatchQueue.main.async {
+                self.conversationListTableView.reloadData()
+            }
+        }
+
         
         //MARK: -Navigate
         navigationItem.title = "Tinkoff Chat"
@@ -73,39 +86,32 @@ extension ConversationListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let channelKey = tableSectionTitles[section]
-        print("\(channelKey)")
-        if let channelValue = dataDictionary[channelKey] {
-            print("\(channelValue)")
-            return channelValue.count
+        
+        if section == 0 {
+            return activeChannelsArray.count
+        } else {
+            return notActiveChannelsArray.count
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = conversationListTableView.dequeueReusableCell(withIdentifier: ConversationListTableViewCell.cellIdentifier) as? ConversationListTableViewCell else { fatalError("ConversationListTableViewCell cannot be dequeued") }
         
-        let channelKey = tableSectionTitles[indexPath.section]
-        let channel: Channel
+
         let conversation: ConversationCellModel
-        let isActive: Bool
-        
-        if channelKey == "Active" {
-            isActive = true
+        let tableSection = tableSectionTitles[indexPath.section]
+        let channel : Channel
+        if tableSection == "Active" {
+            guard let newChannel = activeChannelsArray [indexPath.row] else { return cell }
+            channel = newChannel
         } else {
-            isActive = false
+            guard let newChannel = notActiveChannelsArray [indexPath.row] else { return cell }
+            channel = newChannel
         }
         
-        if let dictionaryByKey = dataDictionary[channelKey] {
-            channel = dictionaryByKey[indexPath.row]
-            conversation = ConversationCellModel(name: channel.name, message: channel.lastMessage, date: channel.lastActivity, isOnline: isActive, hasUnreadMessages: false)
-            cell.configure(with: conversation)
-            
-            return cell
-        } else {
-            print("Error")
-        }
+        conversation = ConversationCellModel(name: channel.name, message: channel.lastMessage, date: channel.lastActivity, isOnline: channel.isActive, hasUnreadMessages: false)
+        cell.configure(with: conversation)
         
         return cell
     }
@@ -125,18 +131,20 @@ extension ConversationListViewController: UITableViewDelegate {
             let vc = UIStoryboard(name: "Conversation", bundle: nil).instantiateInitialViewController() as? ConversationViewController
             else { return }
         
-        let channelKey = tableSectionTitles[indexPath.section]
-        let channel: Channel
-        
-        if let dictionaryByKey = dataDictionary[channelKey] {
-            channel = dictionaryByKey[indexPath.row]
-            vc.navigationItem.largeTitleDisplayMode = .never
-            vc.title = cell.name
-            vc.channelIdentifier = channel.identifier
-            navigationController?.pushViewController(vc, animated: true)
-            
+        let tableSection = tableSectionTitles[indexPath.section]
+        let channel : Channel
+        if tableSection == "Active" {
+            guard let newChannel = activeChannelsArray [indexPath.row] else { return }
+            channel = newChannel
         } else {
-            print("Error")
+            guard let newChannel = notActiveChannelsArray [indexPath.row] else { return }
+            channel = newChannel
         }
+        
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.title = cell.name
+        vc.channelIdentifier = channel.identifier
+        navigationController?.pushViewController(vc, animated: true)
+            
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct MessageCellModel {
-    let text: String
-    let name: String
-    let date: Date 
+    let text: String?
+    let name: String?
+    let date: Date?
 }

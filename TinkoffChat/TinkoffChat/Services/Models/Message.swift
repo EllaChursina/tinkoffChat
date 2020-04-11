@@ -9,18 +9,59 @@
 import Foundation
 import Firebase
 
-struct Message {
-    let content: String
-    let created: Date
-    let senderId: String
-    let senderName: String
+class Message {
+    var content: String
+    var created: Date
+    var senderId: String
+    var senderName: String
+    
+    init(content: String, created: Date, senderId: String, senderName: String) {
+        self.content = content
+        self.created = created
+        self.senderId = senderId
+        self.senderName = senderName
+    }
+    
+    init?(snapshotDocument: QueryDocumentSnapshot) {
+        let data = snapshotDocument.data()
+        
+        guard let content = data["content"] as? String,
+            let senderId = data["senderID"] as? String,
+            let senderName = data["senderName"] as? String,
+            let stamp = data["created"] as? Timestamp
+            else { return nil }
+        let created = stamp.dateValue()
+        
+        self.content = content
+        self.created = created
+        self.senderId = senderId
+        self.senderName = senderName
+    }
+    
 }
 
 extension Message {
-    var toDict: [String: Any] {
+    
+//    func updateData(with snapshotDocument: QueryDocumentSnapshot) throws {
+//        let data = snapshotDocument.data()
+//
+//        guard let content = data["content"] as? String,
+//            let senderId = data["senderID"] as? String,
+//            let senderName = data["senderName"] as? String,
+//            let stamp = data["created"] as? Timestamp
+//            else { return }
+//        let created = stamp.dateValue()
+//        self.created = created
+//        self.senderId = senderId
+//        self.content = content
+//        self.senderName = senderName
+//    }
+    
+    var toDict: [String: Any?] {
+        
         return ["content": content,
                 "created": Timestamp(date: created),
-                "senderID": senderId,
+                "senderId": senderId,
                 "senderName": senderName]
     }
 }

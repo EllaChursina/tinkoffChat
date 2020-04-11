@@ -13,7 +13,7 @@ class NewChannelViewController: UIViewController {
     
     // MARK: -Firebase
     private lazy var firebaseService = FirebaseChatService.shared
-    private lazy var conversationProtocol: ConversationDataProviderProtocol = firebaseService
+    
     
     // MARK: -UI
     @IBOutlet weak var newChannelButton: UIButton!
@@ -31,7 +31,12 @@ class NewChannelViewController: UIViewController {
     // MARK: -Action
     @IBAction func createNewChannelButton(_ sender: UIButton) {
         print("try create channel")
-        conversationProtocol.addNewConversationsDocument(reference: firebaseService.channelReference, viewController: self)
+        guard let newChannelName = newChannelTextField.text else { errorAddingChannel()
+            return
+        }
+        firebaseService.addNewConversationsDocument(reference: firebaseService.channelReference, content: newChannelName)
+        newChannelTextField.text = ""
+        newChannelAddedSuccessfully()
     }
     
     // MARK: -Navigation
@@ -42,4 +47,20 @@ class NewChannelViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    func errorAddingChannel() {
+        let alertController = UIAlertController(title: "Error", message: "Error adding the new channel", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okButton)
+        self.present(alertController, animated: true)
+    }
+    
+    func newChannelAddedSuccessfully(){
+        let alertController = UIAlertController(title: "The new channel added to TinkoffChat successfully", message: nil, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okButton)
+        self.present(alertController, animated: true)
+        
+    }
+    
 }

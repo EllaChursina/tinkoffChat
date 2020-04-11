@@ -14,7 +14,6 @@ class ConversationViewController: UIViewController {
     
     // MARK: -Firebase
     private lazy var firebaseService = FirebaseMessageService.shared
-    private lazy var conversationProtocol: ConversationDataProviderProtocol = firebaseService
     private lazy var messageReference = firebaseService.messageReferenceFor(channelIdentifier: channelIdentifier)
     
     // MARK: -TableViewData
@@ -33,7 +32,13 @@ class ConversationViewController: UIViewController {
         
         // MARK: -Loading firebase data
         dataArray = [Message]()
-        conversationProtocol.syncConversationsData(reference: messageReference, viewController: self, tableView: conversationTableView)
+        firebaseService.syncConversationsData(reference: messageReference) { (dataArray) in
+            self.dataArray.removeAll()
+            self.dataArray = dataArray
+            DispatchQueue.main.async {
+                self.conversationTableView.reloadData()
+            }
+        }
         
         // MARK: -Navigate
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -73,7 +78,7 @@ class ConversationViewController: UIViewController {
     
     // MARK: -Action
     @IBAction private func sendNewMessage(_ sender: UIButton) {
-        conversationProtocol.addNewConversationsDocument(reference: messageReference, viewController: self)
+//        conversationProtocol.addNewConversationsDocument(reference: messageReference, viewController: self)
     }
     
     //MARK: - Keyboard
@@ -106,16 +111,16 @@ extension ConversationViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = String(describing: ConversationMessageCell.self)
-        let message = dataArray[indexPath.row]
-        
+        let messageModel: MessageCellModel
         guard let cell = conversationTableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationMessageCell else { fatalError("ConversationMessageCell cannot be dequeued") }
+        let message = dataArray[indexPath.row]
         if message.senderId == FirebaseMessageService.myID {
             cell.messageIsIncoming = false
         } else {
             cell.messageIsIncoming = true
         }
-        
-        cell.configure(with: MessageCellModel(text: message.content, name: message.senderName, date: message.created))
+        messageModel = MessageCellModel(text: message.content, name: message.senderName, date: message.created)
+        cell.configure(with: messageModel)
         cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         
         return cell
