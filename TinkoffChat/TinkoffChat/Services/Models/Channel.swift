@@ -13,7 +13,9 @@ struct Channel {
     let identifier: String
     let name: String
     let lastMessage: String
-    let lastActivity: Date 
+    let lastActivity: Date
+    
+    func update(with json)
 }
 
 extension Channel {

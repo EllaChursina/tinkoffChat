@@ -30,6 +30,7 @@
 		CD87B5EF23F5C0DB0014DD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD87B5EE23F5C0DB0014DD5B /* Assets.xcassets */; };
 		CD87B5F223F5C0DB0014DD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */; };
 		CD87B5FD23F5C0DB0014DD5B /* TinkoffChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5FC23F5C0DB0014DD5B /* TinkoffChatTests.swift */; };
+		CD9147112441B52100BB27A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD9147102441B52000BB27A1 /* GoogleService-Info.plist */; };
 		CDA43079241C23E900BAA76D /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43078241C23E900BAA76D /* DataManagerProtocol.swift */; };
 		CDA4307D241C263D00BAA76D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA4307C241C263D00BAA76D /* Profile.swift */; };
 		CDA43083241E936A00BAA76D /* FixedOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA43082241E936A00BAA76D /* FixedOrientation.swift */; };
@@ -39,7 +40,6 @@
 		CDA43163242BD57E00022A89 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA43162242BD57E00022A89 /* Default-568h@2x.png */; };
 		CDC45477242E793300769637 /* CoreDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC45476242E793300769637 /* CoreDataStorageManager.swift */; };
 		CDC45479242E79FC00769637 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC45478242E79FC00769637 /* CoreDataStack.swift */; };
-		CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC470A02422D7240023CE3F /* GoogleService-Info.plist */; };
 		CDC470A32422D8E10023CE3F /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC470A22422D8E10023CE3F /* Channel.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +82,7 @@
 		CD87B5F823F5C0DB0014DD5B /* TinkoffChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87B5FC23F5C0DB0014DD5B /* TinkoffChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkoffChatTests.swift; sourceTree = "<group>"; };
 		CD87B5FE23F5C0DB0014DD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD9147102441B52000BB27A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CDA43078241C23E900BAA76D /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
 		CDA4307C241C263D00BAA76D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		CDA43082241E936A00BAA76D /* FixedOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedOrientation.swift; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		CDA43162242BD57E00022A89 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CDC45476242E793300769637 /* CoreDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageManager.swift; sourceTree = "<group>"; };
 		CDC45478242E79FC00769637 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		CDC470A02422D7240023CE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TinkoffChat/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CDC470A22422D8E10023CE3F /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		D73B0B6EDFD954464465B911 /* Pods-TinkoffChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChat.release.xcconfig"; path = "Target Support Files/Pods-TinkoffChat/Pods-TinkoffChat.release.xcconfig"; sourceTree = "<group>"; };
 		DAFB9322580DC751F8297195 /* Pods-TinkoffChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffChatTests.release.xcconfig"; path = "Target Support Files/Pods-TinkoffChatTests/Pods-TinkoffChatTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,8 +205,8 @@
 				CDA431542427F22800022A89 /* Services */,
 				CDA431532427F21D00022A89 /* Presentation */,
 				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
+				CD9147102441B52000BB27A1 /* GoogleService-Info.plist */,
 				CD87B5F323F5C0DB0014DD5B /* Info.plist */,
-				CDC470A02422D7240023CE3F /* GoogleService-Info.plist */,
 				CD87B5EE23F5C0DB0014DD5B /* Assets.xcassets */,
 				CD87B5F023F5C0DB0014DD5B /* LaunchScreen.storyboard */,
 				CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */,
@@ -379,13 +379,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD025D35240A82D600A6D502 /* Profile.storyboard in Resources */,
-				CDC470A12422D7250023CE3F /* GoogleService-Info.plist in Resources */,
 				CD23E34A2426992400D203DD /* NewChannel.storyboard in Resources */,
 				CDA43163242BD57E00022A89 /* Default-568h@2x.png in Resources */,
 				CD025D1B24081BB600A6D502 /* ConversationList.storyboard in Resources */,
 				CD025D1624080AA100A6D502 /* ConversationListTableViewCell.xib in Resources */,
 				CD025D242409740100A6D502 /* Conversation.storyboard in Resources */,
 				CD87B5F223F5C0DB0014DD5B /* LaunchScreen.storyboard in Resources */,
+				CD9147112441B52100BB27A1 /* GoogleService-Info.plist in Resources */,
 				CD025D3F240BD04400A6D502 /* ConversationMessageCell.xib in Resources */,
 				CD87B5EF23F5C0DB0014DD5B /* Assets.xcassets in Resources */,
 			);
@@ -666,7 +666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.tcsbank.TinkoffChat;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tinkoff.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -686,7 +686,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.tcsbank.TinkoffChat;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tinkoff.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
