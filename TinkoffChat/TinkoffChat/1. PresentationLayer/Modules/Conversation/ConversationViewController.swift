@@ -11,10 +11,16 @@ import Firebase
 
 class ConversationViewController: UIViewController {
     
+    private var model: ConversationModel
     
-    // MARK: -Firebase
-    private lazy var firebaseService = FirebaseMessageService.shared
-    private lazy var messageReference = firebaseService.messageReferenceFor(channelIdentifier: channelIdentifier)
+    init(model: ConversationModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: -TableViewData
     var channelIdentifier: String?
@@ -32,29 +38,11 @@ class ConversationViewController: UIViewController {
         
         // MARK: -Loading firebase data
         dataArray = [Message]()
-        firebaseService.syncConversationsData(reference: messageReference) { (dataArray) in
-            self.dataArray.removeAll()
-            self.dataArray = dataArray
-            DispatchQueue.main.async {
-                self.conversationTableView.reloadData()
-            }
-        }
-        
-        // MARK: -Navigate
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        // MARK: -TableView
-        conversationTableView.delegate = self
-        conversationTableView.dataSource = self
-        conversationTableView.register(UINib(nibName: String(describing: ConversationMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationMessageCell.self))
-        conversationTableView.rowHeight = UITableView.automaticDimension
-        conversationTableView.backgroundColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0)
-        conversationTableView.separatorStyle = .none
-        upsideDownTableView()
-        
-        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapScreen.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapScreen)
+
+        syncData()
+        setupTableView()
+        setupNavigationBarItems()
+        setupTapScreen()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +53,7 @@ class ConversationViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.conversationTableView.reloadData()
-//            self.conversationTableView.moveToLastComment()
+
         }
     }
     
@@ -75,6 +63,38 @@ class ConversationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    private func setupTableView() {
+        conversationTableView.delegate = self
+        conversationTableView.dataSource = self
+        conversationTableView.register(UINib(nibName: String(describing: ConversationMessageCell.self), bundle: nil), forCellReuseIdentifier: String(describing: ConversationMessageCell.self))
+        conversationTableView.rowHeight = UITableView.automaticDimension
+        conversationTableView.backgroundColor = UIColor(red: 214.0/255.0, green: 214.0/255.0, blue: 214.0/255.0, alpha: 1.0)
+        conversationTableView.separatorStyle = .none
+        upsideDownTableView()
+    }
+    
+    private func setupNavigationBarItems(){
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func setupTapScreen() {
+        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapScreen)
+    }
+    
+    private func syncData() {
+        let messageReference = model.frbService.messageReferenceFor(channelIdentifier: channelIdentifier)
+        model.frbService.syncConversationsData(reference: messageReference) { (dataArray) in
+            self.dataArray.removeAll()
+            self.dataArray = dataArray
+            DispatchQueue.main.async {
+                self.conversationTableView.reloadData()
+            }
+        }
+    }
+    
     
     // MARK: -Action
     @IBAction private func sendNewMessage(_ sender: UIButton) {

@@ -11,9 +11,17 @@ import Firebase
 
 class NewChannelViewController: UIViewController {
     
-    // MARK: -Firebase
-    private lazy var firebaseService = FirebaseChatService.shared
+    private var model: NewChannelModel
     
+    init(model: NewChannelModel) {
+        self.model = model
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: -UI
     @IBOutlet weak var newChannelButton: UIButton!
@@ -23,9 +31,7 @@ class NewChannelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        newChannelButton.layer.cornerRadius = 10
-        newChannelButton.layer.borderWidth = 1
-        newChannelButton.layer.borderColor = UIColor.black.cgColor
+        setupStyle()
     }
     
     // MARK: -Action
@@ -34,7 +40,8 @@ class NewChannelViewController: UIViewController {
         guard let newChannelName = newChannelTextField.text else { errorAddingChannel()
             return
         }
-        firebaseService.addNewConversationsDocument(reference: firebaseService.channelReference, content: newChannelName)
+        let reference = model.frbService.getChannelReference()
+        model.frbService.addNewConversationsDocument(reference: reference, content: newChannelName)
         newChannelTextField.text = ""
         newChannelAddedSuccessfully()
     }
@@ -42,6 +49,12 @@ class NewChannelViewController: UIViewController {
     // MARK: -Navigation
     @IBAction private func tapCloseButtonNewChannel (_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupStyle(){
+        newChannelButton.layer.cornerRadius = 10
+        newChannelButton.layer.borderWidth = 1
+        newChannelButton.layer.borderColor = UIColor.black.cgColor
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,7 +73,5 @@ class NewChannelViewController: UIViewController {
         let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okButton)
         self.present(alertController, animated: true)
-        
     }
-    
 }

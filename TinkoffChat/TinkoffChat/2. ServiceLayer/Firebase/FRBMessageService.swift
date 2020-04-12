@@ -1,15 +1,23 @@
 //
-//  FirebaseMessageService.swift
+//  FRBMessageService.swift
 //  TinkoffChat
 //
-//  Created by Элла Чурсина on 24.03.2020.
+//  Created by Элла Чурсина on 12.04.2020.
 //  Copyright © 2020 Элла Чурсина. All rights reserved.
 //
 
 import Foundation
 import Firebase
 
-class FirebaseMessageService: ConversationDataProviderProtocol {
+protocol IFRBMessageService: class {
+    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Message]) -> Void)
+    
+    func addNewConversationsDocument(reference: CollectionReference, content: String)
+    
+    func messageReferenceFor(channelIdentifier: String?) -> CollectionReference
+}
+
+class FirebaseMessageService: IFRBMessageService{
     
     static let shared = FirebaseMessageService()
     static var db = Firestore.firestore()
@@ -59,4 +67,3 @@ class FirebaseMessageService: ConversationDataProviderProtocol {
 //        }
     }
 }
-

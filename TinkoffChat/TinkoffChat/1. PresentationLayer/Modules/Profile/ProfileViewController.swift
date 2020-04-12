@@ -41,14 +41,24 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    private var profile = Profile()
-    var dataManager: DataManagerProtocol = CoreDataStorageManager()
+    // MARK: -Dependencies
+    private var model: IAppUserModel
+    
+    // MARK: - Initializers
+    init(model: IAppUserModel) {
+      self.model = model
+      super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: -Editing Dependencies
     
     private var dataWasChanged: Bool {
         get {
-            return self.profile.username != usernameTextField.text || self.profile.usersDescription != usersDescriptionTextField.text || profile.avatar != profileImageView.image
+            return self.model.username != usernameTextField.text || self.model.usersDescription != usersDescriptionTextField.text || model.avatar != profileImageView.image
         }
     }
     
@@ -57,18 +67,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("\(#function) called. EditButton frame is \(editButton.frame) at the moment")
-        
-        profileImageView.layer.cornerRadius = 40
-        setProfileImageButton.layer.cornerRadius = 40
-        
-        editButton.layer.cornerRadius = 10
-        editButton.layer.borderWidth = 1
-        editButton.layer.borderColor = UIColor.black.cgColor
-        
-        saveButton.layer.cornerRadius = 10
-        saveButton.layer.borderWidth = 1
-        saveButton.layer.borderColor = UIColor.black.cgColor
+        setupStyle()
         
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
@@ -81,32 +80,46 @@ class ProfileViewController: UIViewController {
         
         userIsInEditingMode = false
         
-        dataManager.loadProfile { [weak self] (profile, error) in
-            DispatchQueue.main.async {
-                guard error == nil, let profile = profile else {
-                    self?.activityIndicator.stopAnimating()
-                    return
-                }
-                
-                self?.profile = profile
-                
-                if let username = profile.username {
-                    self?.usernameLabel.text = username
-                    self?.usernameTextField.text = username
-                }
-                
-                if let usersDescriprion = profile.usersDescription {
-                    self?.usersDescriptionLabel.text = usersDescriprion
-                    self?.usersDescriptionTextField.text = usersDescriprion
-                }
-                
-                if let avatar = profile.avatar {
-                    self?.selectedImage = avatar
-                }
-                
-                self?.activityIndicator.stopAnimating()
+        model.load { [unowned self] profile in
+            guard let profile = profile else {
+                self.activityIndicator.stopAnimating()
+                return
             }
+            
+            self.model.set(on: profile)
+            
+            if let username = profile.username {
+                self.usernameLabel.text = username
+                self.usernameTextField.text = username
+            }
+            
+            if let usersDescriprion = profile.usersDescription {
+                self.usersDescriptionLabel.text = usersDescriprion
+                self.usersDescriptionTextField.text = usersDescriprion
+            }
+            
+            if let avatar = profile.avatar {
+                self.selectedImage = avatar
+            }
+            
+            self.activityIndicator.stopAnimating()
         }
+            
+    }
+    
+    func setupStyle() {
+        
+        profileImageView.layer.cornerRadius = 40
+        setProfileImageButton.layer.cornerRadius = 40
+        
+        editButton.layer.cornerRadius = 10
+        editButton.layer.borderWidth = 1
+        editButton.layer.borderColor = UIColor.black.cgColor
+        
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 1
+        saveButton.layer.borderColor = UIColor.black.cgColor
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -181,26 +194,27 @@ class ProfileViewController: UIViewController {
         
         handleSaveButtonStyle(canSave: false)
         
-        if usernameTextField.text != profile.username {
-            profile.username = usernameTextField.text
+        if usernameTextField.text != model.username {
+            model.username = usernameTextField.text
             usernameLabel.text = usernameTextField.text
         }
         
-        if usersDescriptionTextField.text != profile.usersDescription {
-            profile.usersDescription = usersDescriptionTextField.text
+        if usersDescriptionTextField.text != model.usersDescription {
+            model.usersDescription = usersDescriptionTextField.text
             usersDescriptionLabel.text = usersDescriptionTextField.text
         }
         
-        if profileImageView.image != profile.avatar {
-            profile.avatar = profileImageView.image
+        if profileImageView.image != model.avatar {
+            model.avatar = profileImageView.image
         }
         
-        dataManager.saveProfile(profile) { [weak self] error in
-            if error == nil {
+        model.save() { [weak self] error in
+            if !error {
                 self?.successfulSaveAlert()
             } else {
                 self?.errorSaveAlert()
             }
+            
             self?.activityIndicator.stopAnimating()
             self?.saveButton.isHidden = true
             self?.editButton.isHidden = false

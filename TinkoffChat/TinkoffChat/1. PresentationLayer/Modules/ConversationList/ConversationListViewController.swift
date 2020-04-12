@@ -11,8 +11,19 @@ import Firebase
 
 class ConversationListViewController: UIViewController {
     
-    // MARK: -Firebase
-    private lazy var firebaseService = FirebaseChatService.shared
+    var model : IConversationListModel!
+    
+//    init(model: IConversationListModel, presentationAssembly: IPresentationAssembly) {
+//        self.model = model
+//        self.presentationAssembly = presentationAssembly
+//        
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 
     // MARK: -UITableViewData
@@ -25,25 +36,42 @@ class ConversationListViewController: UIViewController {
     }
     var activeChannelsArray = [Channel?]()
     var notActiveChannelsArray = [Channel?]()
+    
     // MARK: -UI
     @IBOutlet private weak var conversationListTableView: UITableView!
     
     // MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataArray = [Channel?]()
-        // MARK: -Loading firebase data
-        firebaseService.syncConversationsData(reference: firebaseService.channelReference) { (dataArray) in
-            print(dataArray)
-            self.dataArray.removeAll()
-            self.dataArray = dataArray
-            DispatchQueue.main.async {
-                self.conversationListTableView.reloadData()
-            }
-        }
-
         
-        //MARK: -Navigate
+        dataArray = [Channel?]()
+        
+        setupTableView()
+        syncData()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
+      setupNavigationBarItems()
+
+    }
+
+
+    override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(true)
+
+    }
+    
+    private func setupTableView() {
+        conversationListTableView.dataSource = self
+        conversationListTableView.delegate = self
+        conversationListTableView.register(UINib(nibName: ConversationListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: ConversationListTableViewCell.cellIdentifier)
+        conversationListTableView.rowHeight = UITableView.automaticDimension
+        conversationListTableView.estimatedRowHeight = 66
+    }
+    
+    private func setupNavigationBarItems(){
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -52,13 +80,18 @@ class ConversationListViewController: UIViewController {
         
         let addNewChannelItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(goToAddingNewChannel))
         navigationItem.rightBarButtonItem = addNewChannelItem
-        
-        //MARK: -TableView
-        conversationListTableView.dataSource = self
-        conversationListTableView.delegate = self
-        conversationListTableView.register(UINib(nibName: ConversationListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: ConversationListTableViewCell.cellIdentifier)
-        conversationListTableView.rowHeight = UITableView.automaticDimension
-        conversationListTableView.estimatedRowHeight = 66
+    }
+    
+    private func syncData() {
+        let reference = model.frbService.getChannelReference()
+        model.frbService.syncConversationsData(reference: reference) { (dataArray) in
+            print(dataArray)
+            self.dataArray.removeAll()
+            self.dataArray = dataArray
+            DispatchQueue.main.async {
+                self.conversationListTableView.reloadData()
+            }
+        }
     }
 
     //MARK: -Tabbar buttons methods
@@ -97,11 +130,11 @@ extension ConversationListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = conversationListTableView.dequeueReusableCell(withIdentifier: ConversationListTableViewCell.cellIdentifier) as? ConversationListTableViewCell else { fatalError("ConversationListTableViewCell cannot be dequeued") }
-        
 
         let conversation: ConversationCellModel
         let tableSection = tableSectionTitles[indexPath.section]
         let channel : Channel
+        
         if tableSection == "Active" {
             guard let newChannel = activeChannelsArray [indexPath.row] else { return cell }
             channel = newChannel
@@ -110,7 +143,11 @@ extension ConversationListViewController: UITableViewDataSource {
             channel = newChannel
         }
         
-        conversation = ConversationCellModel(name: channel.name, message: channel.lastMessage, date: channel.lastActivity, isOnline: channel.isActive, hasUnreadMessages: false)
+        conversation = ConversationCellModel(name: channel.name,
+                                             message: channel.lastMessage,
+                                             date: channel.lastActivity,
+                                             isOnline: channel.isActive,
+                                             hasUnreadMessages: false)
         cell.configure(with: conversation)
         
         return cell
@@ -133,6 +170,7 @@ extension ConversationListViewController: UITableViewDelegate {
         
         let tableSection = tableSectionTitles[indexPath.section]
         let channel : Channel
+        
         if tableSection == "Active" {
             guard let newChannel = activeChannelsArray [indexPath.row] else { return }
             channel = newChannel

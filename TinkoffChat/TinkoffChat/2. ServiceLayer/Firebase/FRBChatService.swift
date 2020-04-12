@@ -1,27 +1,32 @@
 //
-//  FirebaseChatService.swift
+//  FRBChatService.swift
 //  TinkoffChat
 //
-//  Created by Элла Чурсина on 24.03.2020.
+//  Created by Элла Чурсина on 12.04.2020.
 //  Copyright © 2020 Элла Чурсина. All rights reserved.
 //
 
 import Foundation
-import UIKit
 import Firebase
 
-class FirebaseChatService: ConversationDataProviderProtocol {
-
-    static let shared = FirebaseChatService(channelReference: db.collection("channels"))
+protocol IFRBChatService: class {
+    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel?]) -> Void)
     
+    func addNewConversationsDocument(reference: CollectionReference, content: String)
+    
+    func getChannelReference() -> CollectionReference
+}
+
+class FirebaseChatService: IFRBChatService {
+
     static var db = Firestore.firestore()
     var dataArray = [Channel]()
-    var channelReference: CollectionReference
     
-    init(channelReference: CollectionReference) {
-        self.channelReference = channelReference
+    func getChannelReference() -> CollectionReference {
+        let reference = FirebaseChatService.db.collection("channels")
+        return reference
     }
-
+    
     func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel?]) -> Void) {
         var dataArray = [Channel?]()
         reference.addSnapshotListener { snapshot, error in
@@ -52,4 +57,3 @@ class FirebaseChatService: ConversationDataProviderProtocol {
     }
 
 }
-
