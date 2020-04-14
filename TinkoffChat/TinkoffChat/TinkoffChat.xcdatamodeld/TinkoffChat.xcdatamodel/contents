@@ -6,6 +6,7 @@
         <attribute name="usersDescription" optional="YES" attributeType="String"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
+    <fetchRequest name="AppUserFetchRequest" entity="AppUser"/>
     <elements>
         <element name="AppUser" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>

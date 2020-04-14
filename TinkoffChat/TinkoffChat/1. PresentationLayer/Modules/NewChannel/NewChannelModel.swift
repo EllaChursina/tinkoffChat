@@ -14,7 +14,7 @@ protocol INewChannelModel: class {
     
 }
 
-class NewChannelModel: IConversationListModel {
+class NewChannelModel: INewChannelModel{
     
     var frbService: IFRBChatService
     

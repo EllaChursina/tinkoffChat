@@ -12,30 +12,23 @@ import Firebase
 class ConversationListViewController: UIViewController {
     
     var model : IConversationListModel!
+    var presentationAssembly: IPresentationAssembly!
     
-//    init(model: IConversationListModel, presentationAssembly: IPresentationAssembly) {
-//        self.model = model
-//        self.presentationAssembly = presentationAssembly
-//        
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-
     // MARK: -UITableViewData
     fileprivate var tableSectionTitles = ["Active", "Not Active"]
-    var dataArray = [Channel?](){
+    var dataArray = [Channel](){
         didSet {
-            activeChannelsArray = dataArray.filter({ return $0?.isActive == true})
-            notActiveChannelsArray = dataArray.filter({ return $0?.isActive == false})
+            activeChannelsArray = dataArray.filter({ return $0.isActive == true})
+             let sortedActiveArray = activeChannelsArray.sorted(by: {$0.lastActivity > $1.lastActivity})
+            activeChannelsArray = sortedActiveArray
+            
+            notActiveChannelsArray = dataArray.filter({ return $0.isActive == false})
+            let sortedNotActiveArray = notActiveChannelsArray.sorted(by: {$0.lastActivity > $1.lastActivity})
+            notActiveChannelsArray = sortedNotActiveArray
         }
     }
-    var activeChannelsArray = [Channel?]()
-    var notActiveChannelsArray = [Channel?]()
+    var activeChannelsArray = [Channel]()
+    var notActiveChannelsArray = [Channel]()
     
     // MARK: -UI
     @IBOutlet private weak var conversationListTableView: UITableView!
@@ -44,7 +37,7 @@ class ConversationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataArray = [Channel?]()
+        dataArray = [Channel]()
         
         setupTableView()
         syncData()
@@ -96,17 +89,13 @@ class ConversationListViewController: UIViewController {
 
     //MARK: -Tabbar buttons methods
     @objc private func goToProfileViewController() {
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-        if let vc = storyboard.instantiateInitialViewController() {
-            self.present(vc, animated: true, completion: nil) 
-        }
+        let vc = presentationAssembly.profileViewController()
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc private func goToAddingNewChannel() {
-        let storyboard = UIStoryboard(name: "NewChannel", bundle: nil)
-        if let vc = storyboard.instantiateInitialViewController() {
-            self.present(vc, animated: true, completion: nil)
-        }
+        let vc = presentationAssembly.newChannelViewController()
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -136,10 +125,10 @@ extension ConversationListViewController: UITableViewDataSource {
         let channel : Channel
         
         if tableSection == "Active" {
-            guard let newChannel = activeChannelsArray [indexPath.row] else { return cell }
+            let newChannel = activeChannelsArray [indexPath.row]
             channel = newChannel
         } else {
-            guard let newChannel = notActiveChannelsArray [indexPath.row] else { return cell }
+            let newChannel = notActiveChannelsArray [indexPath.row]
             channel = newChannel
         }
         
@@ -164,18 +153,20 @@ extension ConversationListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? ConversationListTableViewCell,
-            let vc = UIStoryboard(name: "Conversation", bundle: nil).instantiateInitialViewController() as? ConversationViewController
+        guard let cell = tableView.cellForRow(at: indexPath) as? ConversationListTableViewCell
+            
             else { return }
+        
+        let vc = presentationAssembly.conversationViewController()
         
         let tableSection = tableSectionTitles[indexPath.section]
         let channel : Channel
         
         if tableSection == "Active" {
-            guard let newChannel = activeChannelsArray [indexPath.row] else { return }
+            let newChannel = activeChannelsArray [indexPath.row]
             channel = newChannel
         } else {
-            guard let newChannel = notActiveChannelsArray [indexPath.row] else { return }
+            let newChannel = notActiveChannelsArray [indexPath.row]
             channel = newChannel
         }
         

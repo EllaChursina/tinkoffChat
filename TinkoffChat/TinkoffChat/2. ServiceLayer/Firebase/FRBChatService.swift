@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 protocol IFRBChatService: class {
-    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel?]) -> Void)
+    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel]) -> Void)
     
     func addNewConversationsDocument(reference: CollectionReference, content: String)
     
@@ -27,8 +27,8 @@ class FirebaseChatService: IFRBChatService {
         return reference
     }
     
-    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel?]) -> Void) {
-        var dataArray = [Channel?]()
+    func syncConversationsData(reference: CollectionReference, completion: @escaping (_ dataArray: [Channel]) -> Void) {
+        var dataArray = [Channel]()
         reference.addSnapshotListener { snapshot, error in
             guard let snapshot = snapshot else {
             print("Error fetching document: \(error!)")
@@ -40,12 +40,16 @@ class FirebaseChatService: IFRBChatService {
             for channel in channels {
                 do {
                     let newChannel =  try Channel(snapshotDocument: channel)
+                    guard let appendingChannel = newChannel else {
+                        continue
+                    }
                     print(newChannel)
-                    dataArray.append(newChannel)
+                    dataArray.append(appendingChannel)
                 } catch {
                     print("Error channel updating (\(error))")
                 }
             }
+            dataArray = dataArray.sorted(by: {$0.lastMessage < $1.lastMessage})
             completion(dataArray)
         }
     }

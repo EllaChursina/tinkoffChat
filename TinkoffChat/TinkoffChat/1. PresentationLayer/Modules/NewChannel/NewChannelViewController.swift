@@ -11,17 +11,7 @@ import Firebase
 
 class NewChannelViewController: UIViewController {
     
-    private var model: NewChannelModel
-    
-    init(model: NewChannelModel) {
-        self.model = model
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var model: INewChannelModel!
     
     // MARK: -UI
     @IBOutlet weak var newChannelButton: UIButton!
@@ -31,7 +21,28 @@ class NewChannelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addNavigationBar()
         setupStyle()
+    }
+    
+    private func addNavigationBar(){
+        let height: CGFloat = 45
+        var statusBarHeight: CGFloat = 0
+        statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let navbar = UINavigationBar(frame: CGRect(x: 0, y: statusBarHeight, width: UIScreen.main.bounds.width, height: height))
+        navbar.backgroundColor = UIColor.white
+        navbar.delegate = self as? UINavigationBarDelegate
+        
+        let navItem = UINavigationItem()
+        navItem.title = "Create new channel"
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCloseButtonNewChannel))
+        navItem.leftBarButtonItem = closeItem
+        
+        navbar.items = [navItem]
+        
+        view.addSubview(navbar)
+        
+        self.view?.frame = CGRect(x: 0, y: height, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height - height))
     }
     
     // MARK: -Action
@@ -46,8 +57,7 @@ class NewChannelViewController: UIViewController {
         newChannelAddedSuccessfully()
     }
     
-    // MARK: -Navigation
-    @IBAction private func tapCloseButtonNewChannel (_ sender: Any) {
+    @objc private func tapCloseButtonNewChannel() {
         self.dismiss(animated: true, completion: nil)
     }
     

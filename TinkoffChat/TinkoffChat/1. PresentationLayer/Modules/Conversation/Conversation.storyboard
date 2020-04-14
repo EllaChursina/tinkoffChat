@@ -78,6 +78,7 @@
                     <connections>
                         <outlet property="conversationTableView" destination="laP-aA-Tqo" id="Vir-dR-fsd"/>
                         <outlet property="newMessageTextField" destination="tuo-MF-RGL" id="5ex-9l-8gX"/>
+                        <outlet property="sendNewMessageButton" destination="PCC-la-S3g" id="BGC-Jd-xjV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eu-Sv-PEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

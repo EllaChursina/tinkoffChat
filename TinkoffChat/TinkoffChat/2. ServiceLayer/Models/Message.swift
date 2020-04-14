@@ -24,7 +24,7 @@ class Message {
     
     init?(snapshotDocument: QueryDocumentSnapshot) {
         let data = snapshotDocument.data()
-        
+        print(data)
         guard let content = data["content"] as? String,
             let senderId = data["senderID"] as? String,
             let senderName = data["senderName"] as? String,
@@ -61,7 +61,7 @@ extension Message {
         
         return ["content": content,
                 "created": Timestamp(date: created),
-                "senderId": senderId,
+                "senderID": senderId,
                 "senderName": senderName]
     }
 }

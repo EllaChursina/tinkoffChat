@@ -11,25 +11,17 @@ import Firebase
 
 class ConversationViewController: UIViewController {
     
-    private var model: ConversationModel
-    
-    init(model: ConversationModel) {
-        self.model = model
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var model: IConversationModel!
     
     // MARK: -TableViewData
+    
     var channelIdentifier: String?
     var dataArray = [Message]()
     
     // MARK: -UI
     @IBOutlet weak var conversationTableView: UITableView!
     @IBOutlet weak var newMessageTextField: UITextField!
-    
+    @IBOutlet weak var sendNewMessageButton: UIButton!
     
     // MARK: -LIfecycle
     
@@ -78,10 +70,11 @@ class ConversationViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func setupTapScreen() {
+    private func setupTapScreen() {
         let tapScreen = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapScreen.cancelsTouchesInView = false
         view.addGestureRecognizer(tapScreen)
+        tapScreen.delegate = self
     }
     
     private func syncData() {
@@ -98,7 +91,16 @@ class ConversationViewController: UIViewController {
     
     // MARK: -Action
     @IBAction private func sendNewMessage(_ sender: UIButton) {
-//        conversationProtocol.addNewConversationsDocument(reference: messageReference, viewController: self)
+        
+        guard let content = newMessageTextField.text else { return }
+        let messageReference = model.frbService.messageReferenceFor(channelIdentifier: channelIdentifier)
+        model.frbService.addNewConversationsDocument(reference: messageReference, content: content)
+        
+        newMessageTextField.text = ""
+        
+        DispatchQueue.main.async {
+            self.conversationTableView.reloadData()
+        }
     }
     
     //MARK: - Keyboard
@@ -117,9 +119,6 @@ class ConversationViewController: UIViewController {
         view.endEditing(true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
 }
 
 // MARK: - UITableViewDataSourse
@@ -156,3 +155,10 @@ extension ConversationViewController: UITableViewDelegate {
     
 }
 
+extension ConversationViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let isControllTapped = touch.view is UIControl
+        return !isControllTapped
+    }
+
+}

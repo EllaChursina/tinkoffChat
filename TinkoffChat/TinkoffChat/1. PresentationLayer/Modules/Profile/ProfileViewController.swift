@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var usernameLabel: UILabel!
     @IBOutlet private weak var usersDescriptionLabel: UILabel!
     @IBOutlet private weak var editButton: UIButton!
-    @IBOutlet private weak var closeProfileButton: UIBarButtonItem!
+
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var saveButton: UIButton!
     
@@ -42,17 +42,7 @@ class ProfileViewController: UIViewController {
     }
     
     // MARK: -Dependencies
-    private var model: IAppUserModel
-    
-    // MARK: - Initializers
-    init(model: IAppUserModel) {
-      self.model = model
-      super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-    }
+    var model: IAppUserModel!
     
     // MARK: -Editing Dependencies
     
@@ -68,6 +58,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupStyle()
+        addNavigationBar()
         
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
@@ -107,20 +98,7 @@ class ProfileViewController: UIViewController {
             
     }
     
-    func setupStyle() {
-        
-        profileImageView.layer.cornerRadius = 40
-        setProfileImageButton.layer.cornerRadius = 40
-        
-        editButton.layer.cornerRadius = 10
-        editButton.layer.borderWidth = 1
-        editButton.layer.borderColor = UIColor.black.cgColor
-        
-        saveButton.layer.cornerRadius = 10
-        saveButton.layer.borderWidth = 1
-        saveButton.layer.borderColor = UIColor.black.cgColor
-        
-    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -134,12 +112,6 @@ class ProfileViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    // MARK: -Navigation
-    
-    @IBAction private func tapCloseButtonProfile(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: -Action
@@ -223,6 +195,45 @@ class ProfileViewController: UIViewController {
             self?.usersDescriptionTextField.layer.borderColor = UIColor.white.cgColor
         }
         userIsInEditingMode = false
+    }
+    
+    private func setupStyle() {
+        
+        profileImageView.layer.cornerRadius = 40
+        setProfileImageButton.layer.cornerRadius = 40
+        
+        editButton.layer.cornerRadius = 10
+        editButton.layer.borderWidth = 1
+        editButton.layer.borderColor = UIColor.black.cgColor
+        
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 1
+        saveButton.layer.borderColor = UIColor.black.cgColor
+        
+    }
+    
+    private func addNavigationBar(){
+        let height: CGFloat = 45
+        var statusBarHeight: CGFloat = 0
+        statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let navbar = UINavigationBar(frame: CGRect(x: 0, y: statusBarHeight, width: UIScreen.main.bounds.width, height: height))
+        navbar.backgroundColor = UIColor.white
+        navbar.delegate = self as? UINavigationBarDelegate
+        
+        let navItem = UINavigationItem()
+        navItem.title = "Create new channel"
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCloseButton))
+        navItem.leftBarButtonItem = closeItem
+        
+        navbar.items = [navItem]
+        
+        view.addSubview(navbar)
+        
+        self.view?.frame = CGRect(x: 0, y: height, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height - height))
+    }
+    
+    @objc private func tapCloseButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Photo

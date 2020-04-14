@@ -40,10 +40,11 @@ class FirebaseMessageService: IFRBMessageService{
             let messages = snapshot.documents
             dataArray.removeAll()
             for message in messages {
+                let newMessage = Message(snapshotDocument: message) 
                 do {
                     let newMessage = try Message(snapshotDocument: message)
                     guard let appendingMessage = newMessage else {
-                        return
+                        continue
                     }
                     dataArray.append(appendingMessage)
                 } catch {
@@ -57,13 +58,8 @@ class FirebaseMessageService: IFRBMessageService{
     
     func addNewConversationsDocument(reference: CollectionReference, content: String) {
     
-        let newMessage = Message(content: content, created: Date(), senderId: FirebaseMessageService.myID, senderName: FirebaseMessageService.myName)
+        let newMessage = Message(content: content, created: Date(), senderId: "420", senderName: "Someone")
         reference.addDocument(data: newMessage.toDict)
-        
-//        vc.newMessageTextField.text = ""
-        
-//        DispatchQueue.main.async {
-//            vc.conversationTableView.reloadData()
-//        }
     }
+        
 }
