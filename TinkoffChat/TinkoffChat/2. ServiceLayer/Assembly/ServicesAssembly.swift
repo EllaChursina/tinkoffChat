@@ -12,6 +12,7 @@ import Firebase
 protocol IServicesAssembly {
     var firebaseChatService: IFRBChatService { get }
     var firebaseMessageService: IFRBMessageService { get }
+    var picturesService: IPicturesService { get }
 
 }
 
@@ -26,5 +27,7 @@ class ServicesAssembly: IServicesAssembly {
     lazy var firebaseChatService: IFRBChatService  = FirebaseChatService()
     
     lazy var firebaseMessageService: IFRBMessageService  = FirebaseMessageService()
+    
+    lazy var picturesService: IPicturesService = PicturesService(requestSender: coreAssembly.requestSender)
     
 }

@@ -18,6 +18,8 @@ protocol IPresentationAssembly {
     func conversationViewController() -> ConversationViewController
     
     func newChannelViewController() -> NewChannelViewController
+    
+    func picturesViewController() -> PicturesViewController
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -32,6 +34,7 @@ class PresentationAssembly: IPresentationAssembly {
         guard let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as? ProfileViewController else { fatalError() }
         let model = profileModel()
         vc.model = model
+        vc.presentationAssembly = presentationAssembly
         return vc
     }
     
@@ -75,5 +78,18 @@ class PresentationAssembly: IPresentationAssembly {
     private func newChannelModel() -> INewChannelModel {
         return NewChannelModel(frbService: serviceAssembly.firebaseChatService)
     }
+    
+    func picturesViewController() -> PicturesViewController {
+        guard let vc = UIStoryboard(name: "Pictures", bundle: nil).instantiateInitialViewController() as? PicturesViewController else { fatalError() }
+        let model = picturesModel()
+        vc.model = model
+        return vc
+    }
+    
+    private func picturesModel() -> IPicturesModel {
+        return PicturesModel(picturesService: serviceAssembly.picturesService)
+    }
+    
+    
     
 }

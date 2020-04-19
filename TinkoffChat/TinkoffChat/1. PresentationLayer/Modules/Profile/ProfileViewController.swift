@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: -Dependencies
     var model: IAppUserModel!
-    
+    var presentationAssembly: IPresentationAssembly!
     // MARK: -Editing Dependencies
     
     private var dataWasChanged: Bool {
