@@ -38,16 +38,11 @@ class FirebaseChatService: IFRBChatService {
             let channels = snapshot.documents
             
             for channel in channels {
-                do {
-                    let newChannel =  try Channel(snapshotDocument: channel)
-                    guard let appendingChannel = newChannel else {
-                        continue
-                    }
-                    print(newChannel)
-                    dataArray.append(appendingChannel)
-                } catch {
-                    print("Error channel updating (\(error))")
+                let newChannel =  Channel(snapshotDocument: channel)
+                guard let appendingChannel = newChannel else {
+                    continue
                 }
+                dataArray.append(appendingChannel)
             }
             dataArray = dataArray.sorted(by: {$0.lastMessage < $1.lastMessage})
             completion(dataArray)

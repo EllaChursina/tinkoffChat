@@ -42,21 +42,6 @@ class Message {
 
 extension Message {
     
-//    func updateData(with snapshotDocument: QueryDocumentSnapshot) throws {
-//        let data = snapshotDocument.data()
-//
-//        guard let content = data["content"] as? String,
-//            let senderId = data["senderID"] as? String,
-//            let senderName = data["senderName"] as? String,
-//            let stamp = data["created"] as? Timestamp
-//            else { return }
-//        let created = stamp.dateValue()
-//        self.created = created
-//        self.senderId = senderId
-//        self.content = content
-//        self.senderName = senderName
-//    }
-    
     var toDict: [String: Any?] {
         
         return ["content": content,

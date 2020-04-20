@@ -40,16 +40,11 @@ class FirebaseMessageService: IFRBMessageService{
             let messages = snapshot.documents
             dataArray.removeAll()
             for message in messages {
-                let newMessage = Message(snapshotDocument: message) 
-                do {
-                    let newMessage = try Message(snapshotDocument: message)
-                    guard let appendingMessage = newMessage else {
-                        continue
-                    }
-                    dataArray.append(appendingMessage)
-                } catch {
-                    print("Error channel updating (\(error))")
+                let newMessage = Message(snapshotDocument: message)
+                guard let appendingMessage = newMessage else {
+                    continue
                 }
+                dataArray.append(appendingMessage)
             }
             dataArray = dataArray.sorted(by: {$0.created > $1.created})
             completion(dataArray)
@@ -59,7 +54,7 @@ class FirebaseMessageService: IFRBMessageService{
     func addNewConversationsDocument(reference: CollectionReference, content: String) {
     
         let newMessage = Message(content: content, created: Date(), senderId: "420", senderName: "Someone")
-        reference.addDocument(data: newMessage.toDict)
+        reference.addDocument(data: newMessage.toDict as [String : Any])
     }
         
 }

@@ -11,20 +11,24 @@ import UIKit
 
 class PicturesModel: IPicturesModel {
     private let picturesService: IPicturesService
+    private let scaleImageService: IScalingImageService
     var data: [Picture] = []
     
-    init(picturesService: IPicturesService) {
+    init(picturesService: IPicturesService, scaleImageService: IScalingImageService) {
         self.picturesService = picturesService
+        self.scaleImageService = scaleImageService
     }
     
-    func fetchPicture(urlString: String, completionHandler: @escaping (UIImage?) -> ()) {
+    func fetchPicture(urlString: String, size: CGFloat, completionHandler: @escaping (UIImage?) -> ()) {
         picturesService.downloadPicture(urlString: urlString) { image, error in
             
             guard let image = image else {
                 return completionHandler(nil)
             }
             
-            completionHandler(image)
+            let scalingImage = self.scaleImageService.scaleImage(image: image, size: size)
+            
+            completionHandler(scalingImage)
         }
     }
     
@@ -39,5 +43,6 @@ class PicturesModel: IPicturesModel {
             completionHandler(pictures, nil)
         }
     }
+    
     
 }

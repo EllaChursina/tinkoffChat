@@ -26,5 +26,5 @@ protocol IPicturesModel: class {
     var data: [Picture] { get set }
     
     func fetchAllPictures(completionHandler: @escaping ([Picture]?, String?) -> ())
-    func fetchPicture(urlString: String, completionHandler: @escaping (UIImage?) -> ())
+    func fetchPicture(urlString: String, size: CGFloat, completionHandler: @escaping (UIImage?) -> ())
 }

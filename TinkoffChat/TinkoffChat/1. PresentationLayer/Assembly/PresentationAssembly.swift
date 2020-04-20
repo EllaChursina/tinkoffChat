@@ -33,6 +33,7 @@ class PresentationAssembly: IPresentationAssembly {
     func profileViewController() -> ProfileViewController {
         guard let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as? ProfileViewController else { fatalError() }
         let model = profileModel()
+        let presentationAssembly: IPresentationAssembly = self
         vc.model = model
         vc.presentationAssembly = presentationAssembly
         return vc
@@ -87,7 +88,7 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     private func picturesModel() -> IPicturesModel {
-        return PicturesModel(picturesService: serviceAssembly.picturesService)
+        return PicturesModel(picturesService: serviceAssembly.picturesService, scaleImageService: serviceAssembly.scalingImageService)
     }
     
     

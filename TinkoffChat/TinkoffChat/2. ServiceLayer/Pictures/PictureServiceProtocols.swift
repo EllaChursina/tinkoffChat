@@ -10,9 +10,13 @@ import Foundation
 import UIKit
 
 protocol IPicturesService {
+    
+    func getPictures(completionHandler: @escaping ([Picture]?, String?) -> ())
+    
+    func downloadPicture(urlString: String, completionHandler: @escaping (UIImage?, String?) -> ())
+    
+}
 
-  func getPictures(completionHandler: @escaping ([Picture]?, String?) -> ())
-
-  func downloadPicture(urlString: String, completionHandler: @escaping (UIImage?, String?) -> ())
-
+protocol IScalingImageService {
+    func scaleImage(image: UIImage, size: CGFloat) -> UIImage
 }

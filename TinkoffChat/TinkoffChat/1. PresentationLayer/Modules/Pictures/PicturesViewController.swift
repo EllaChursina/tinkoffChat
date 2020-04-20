@@ -2,37 +2,38 @@
 //  PicturesViewController.swift
 //  TinkoffChat
 //
-//  Created by Элла Чурсина on 17.04.2020.
+//  Created by Элла Чурсина on 20.04.2020.
 //  Copyright © 2020 Элла Чурсина. All rights reserved.
 //
-
 import Foundation
 import UIKit
 
 class PicturesViewController: UIViewController {
-    let model: IPicturesModel!
+    
+    var model: IPicturesModel!
     weak var collectionPickerDelegate: IPicturesViewControllerDelegate?
     
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var spinner: UIActivityIndicatorView!
+    @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var spinner: UIActivityIndicatorView!
     
-    private let itemsPerRow: CGFloat = 3
+    private let cellSize = (UIScreen.main.bounds.width - 22)/3.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureData()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         configureCollectionView()
         configureNavigationPane()
+        
     }
     
     private func configureData() {
-        spinner.layer.cornerRadius = spinner.frame.size.width / 2
+        spinner.hidesWhenStopped = true
         spinner.startAnimating()
-        
         model.fetchAllPictures() { [weak self] pictures, error in
             
             if let pictures = pictures {
@@ -63,13 +64,47 @@ class PicturesViewController: UIViewController {
         collectionView.register(UINib(nibName: "PictureCell", bundle: nil), forCellWithReuseIdentifier: "PictureCell")
         
         collectionView.dataSource = self
-        collectionView.delegate = self as UICollectionViewDelegate
+        collectionView.delegate = self
     }
     
     private func configureNavigationPane() {
-        let leftItem = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(close))
+        let leftItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(close))
         
         navigationItem.setLeftBarButton(leftItem, animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension PicturesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? PictureCell {
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                guard let url = cell.largeImageUrl else {
+                    self.showErrorMessage("Error loading image")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView.alpha = 0.1
+                    self.spinner.startAnimating()
+                }
+                
+                self.model.fetchPicture(urlString: url, size: self.cellSize) { image in
+                    DispatchQueue.main.async {
+                        self.collectionView.alpha = 1
+                        self.spinner.stopAnimating()
+                        
+                        guard let image = image else {
+                            self.showErrorMessage("Error fetching image")
+                            return
+                        }
+                        self.collectionPickerDelegate?.collectionPickerController(self, didFinishPickingImage: image)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -98,7 +133,7 @@ extension PicturesViewController: UICollectionViewDataSource {
         let picture = model.data[indexPath.item]
         
         DispatchQueue.global(qos: .userInteractive).async {
-            self.model.fetchPicture(urlString: picture.previewUrl) { image in
+            self.model.fetchPicture(urlString: picture.previewUrl, size: self.cellSize) { image in
                 guard let image = image else { return }
                 
                 DispatchQueue.main.async {
@@ -107,39 +142,8 @@ extension PicturesViewController: UICollectionViewDataSource {
                 
             }
         }
-        
+        cell.layoutIfNeeded()
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? PictureCell {
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                guard let url = cell.largeImageUrl else {
-                    self.showErrorMessage("Error loading image")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.collectionView.alpha = 0.1
-                    self.spinner.startAnimating()
-                }
-                
-                self.model.fetchPicture(urlString: url) { image in
-                    DispatchQueue.main.async {
-                        self.collectionView.alpha = 1
-                        self.spinner.stopAnimating()
-                        
-                        guard let image = image else {
-                            self.showErrorMessage("Error fetching image")
-                            return
-                        }
-                        self.collectionPickerDelegate?.collectionPickerController(self, didFinishPickingImage: image)
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -147,22 +151,19 @@ extension PicturesViewController: UICollectionViewDataSource {
 extension PicturesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let screenRect = UIScreen.main.bounds
-        let anotherOne = itemsPerRow + 1
-        
-        let width = screenRect.size.width - 10.0 * anotherOne
-        let height = width / itemsPerRow
-        
-        return CGSize(width: floor(height), height: height)
+        return CGSize(width: cellSize, height: cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
     }
 }
 

@@ -13,6 +13,7 @@ protocol IServicesAssembly {
     var firebaseChatService: IFRBChatService { get }
     var firebaseMessageService: IFRBMessageService { get }
     var picturesService: IPicturesService { get }
+    var scalingImageService: IScalingImageService { get }
 
 }
 
@@ -29,5 +30,7 @@ class ServicesAssembly: IServicesAssembly {
     lazy var firebaseMessageService: IFRBMessageService  = FirebaseMessageService()
     
     lazy var picturesService: IPicturesService = PicturesService(requestSender: coreAssembly.requestSender)
+    
+    lazy var scalingImageService: IScalingImageService = ScalingImageService()
     
 }

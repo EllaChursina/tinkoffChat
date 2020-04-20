@@ -127,20 +127,36 @@ class ProfileViewController: UIViewController {
         self.imagePickerController = UIImagePickerController.init()
         
         let actionSheetPhotoController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             print("Cancel action sheet controller")
         }
         actionSheetPhotoController.addAction(cancelButton)
+        
         let selectFromGalleryButton = UIAlertAction(title: "Select new from gallery", style: .default) { _ in
             print("Will select a new photo from gallery")
             self.openPhotoGallery()
         }
         actionSheetPhotoController.addAction(selectFromGalleryButton)
+        
         let openCameraButton = UIAlertAction(title: "Take new photo", style: .default) { _ in
             print("Will take a new photo from camera")
             self.openCamera()
         }
         actionSheetPhotoController.addAction(openCameraButton)
+        
+        let downloadButton = UIAlertAction(title: "Download", style: .default) { (action: UIAlertAction) in
+            let vc = self.presentationAssembly.picturesViewController()
+            
+            vc.collectionPickerDelegate = self
+            
+            let navigationController = UINavigationController()
+            navigationController.viewControllers = [vc]
+            
+            self.present(navigationController, animated: true, completion: nil)
+        }
+        actionSheetPhotoController.addAction(downloadButton)
+        
         self.present(actionSheetPhotoController, animated:  true)
     }
     
@@ -221,7 +237,7 @@ class ProfileViewController: UIViewController {
         navbar.delegate = self as? UINavigationBarDelegate
         
         let navItem = UINavigationItem()
-        navItem.title = "Create new channel"
+        navItem.title = "Profile"
         let closeItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCloseButton))
         navItem.leftBarButtonItem = closeItem
         
@@ -282,8 +298,6 @@ class ProfileViewController: UIViewController {
     }
     
     //MARK: - Editing
-    
-    
     
     private var userIsInEditingMode = false {
         didSet {
@@ -383,4 +397,14 @@ extension ProfileViewController: UITextFieldDelegate {
     @objc func textFieldDidChange(_ textField: UITextField) {
         handleSaveButtonStyle(canSave: dataWasChanged)
     }
+}
+
+// MARK: - IPicturesViewControllerDelegate
+extension ProfileViewController: IPicturesViewControllerDelegate {
+  func collectionPickerController(_ picker: ICollectionPickerController, didFinishPickingImage image: UIImage) {
+    profileImageView.image = image
+    handleSaveButtonStyle(canSave: true)
+    picker.close()
+  }
+
 }
