@@ -23,6 +23,7 @@ class ConversationViewController: UIViewController {
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak var sendNewMessageButton: UIButton!
     
+    private var enabled: Bool = false
     // MARK: -LIfecycle
     
     override func viewDidLoad() {
@@ -35,6 +36,9 @@ class ConversationViewController: UIViewController {
         setupTableView()
         setupNavigationBarItems()
         setupTapScreen()
+        
+        newMessageTextField.delegate = self
+        newMessageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,16 +96,61 @@ class ConversationViewController: UIViewController {
     // MARK: -Action
     @IBAction private func sendNewMessage(_ sender: UIButton) {
         
-        guard let content = newMessageTextField.text else { return }
+        guard let content = newMessageTextField.text else {
+            performAnimation(sender, enabled: false)
+            return }
+        enabled = true
+        
         let messageReference = model.frbService.messageReferenceFor(channelIdentifier: channelIdentifier)
         model.frbService.addNewConversationsDocument(reference: messageReference, content: content)
         
+        
         newMessageTextField.text = ""
+        enabled = false 
+        
+        
         
         DispatchQueue.main.async {
             self.conversationTableView.reloadData()
         }
     }
+    
+    private func performAnimation(_ button: UIButton, enabled: Bool) {
+        
+        if (enabled) {
+            UIView.animate(withDuration: 1, animations: { () -> Void in
+                button.backgroundColor = UIColor.green
+            })
+            
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                            button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.5) {
+                                button.transform = CGAffineTransform.identity
+                            }
+            })
+            
+        } else {
+            // button shutoff
+            UIView.animate(withDuration: 1, animations: { () -> Void in
+                button.backgroundColor = UIColor.red
+            })
+            
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                            button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.5) {
+                                button.transform = CGAffineTransform.identity
+                            }
+            })
+        }
+    }
+   
+    
     
     //MARK: - Keyboard
     @objc private func keyboardWillSnow(notification: Notification) {
@@ -161,4 +210,15 @@ extension ConversationViewController: UIGestureRecognizerDelegate {
         return !isControllTapped
     }
 
+}
+
+extension ConversationViewController: UITextFieldDelegate {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if (textField.text == "") {
+            performAnimation(sendNewMessageButton, enabled: false)
+        } else {
+            performAnimation(sendNewMessageButton, enabled: true)
+        }
+        
+    }
 }
