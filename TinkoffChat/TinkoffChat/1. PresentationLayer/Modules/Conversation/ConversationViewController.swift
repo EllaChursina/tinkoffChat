@@ -23,7 +23,6 @@ class ConversationViewController: UIViewController {
     @IBOutlet weak var newMessageTextField: UITextField!
     @IBOutlet weak var sendNewMessageButton: UIButton!
     
-    private var enabled: Bool = false
     // MARK: -LIfecycle
     
     override func viewDidLoad() {
@@ -37,8 +36,10 @@ class ConversationViewController: UIViewController {
         setupNavigationBarItems()
         setupTapScreen()
         
-        newMessageTextField.delegate = self
-        newMessageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        changeSendButton(isEnabled: true)
+        
+//        conversationService.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,14 +100,14 @@ class ConversationViewController: UIViewController {
         guard let content = newMessageTextField.text else {
             performAnimation(sender, enabled: false)
             return }
-        enabled = true
         
         let messageReference = model.frbService.messageReferenceFor(channelIdentifier: channelIdentifier)
         model.frbService.addNewConversationsDocument(reference: messageReference, content: content)
         
         
         newMessageTextField.text = ""
-        enabled = false 
+        
+        changeSendButton(isEnabled: false)
         
         
         
@@ -114,6 +115,38 @@ class ConversationViewController: UIViewController {
             self.conversationTableView.reloadData()
         }
     }
+    
+    @IBAction func textMessageDidBeginEditing(_ sender: Any) {
+        changeSendButton(isEnabled: true)
+    }
+    
+    @IBAction func textMessageDidEndEditing(_ sender: Any) {
+        if newMessageTextField.text == "" {
+            changeSendButton(isEnabled: false)
+        } else { return }
+    }
+    
+    func changeSendButton(isEnabled: Bool) {
+        
+        UIView.transition(with: sendNewMessageButton, duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                            self.sendNewMessageButton.layer.backgroundColor = isEnabled ? UIColor.green.cgColor: UIColor.lightGray.cgColor
+        }, completion: { success in
+            self.sendNewMessageButton.isEnabled = isEnabled
+        })
+        
+        UIView.animate(withDuration: 0.5,
+                       animations: {
+                        self.sendNewMessageButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.5) {
+                            self.sendNewMessageButton.transform = CGAffineTransform.identity
+                        }
+        })
+    }
+
     
     private func performAnimation(_ button: UIButton, enabled: Bool) {
         
@@ -212,13 +245,13 @@ extension ConversationViewController: UIGestureRecognizerDelegate {
 
 }
 
-extension ConversationViewController: UITextFieldDelegate {
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if (textField.text == "") {
-            performAnimation(sendNewMessageButton, enabled: false)
-        } else {
-            performAnimation(sendNewMessageButton, enabled: true)
-        }
-        
-    }
-}
+// MARK: - IConversationServiceDelegate
+//extension ConversationViewController: IConversationServiceDelegate {
+//    func conversationDidUpdate(name: String?, isOnline: Bool) {
+//        guard name == conversation?.name else { return }
+//
+//        DispatchQueue.main.async {
+//            self.changeSendButton(isEnabled: isOnline)
+//        }
+//    }
+//}

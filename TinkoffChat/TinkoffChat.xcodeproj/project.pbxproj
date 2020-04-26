@@ -40,6 +40,8 @@
 		CD2AC98D244DAACA0066CE22 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2AC98B244DAACA0066CE22 /* PicturesViewController.swift */; };
 		CD36B972244DCFA80074D622 /* Pictures.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD36B971244DCFA80074D622 /* Pictures.storyboard */; };
 		CD36B974244DDF230074D622 /* ScalingImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD36B973244DDF230074D622 /* ScalingImageService.swift */; };
+		CD3FBE34245491AC00643682 /* MyApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FBE33245491AC00643682 /* MyApplication.swift */; };
+		CD3FBE372454922200643682 /* LogoSpreader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3FBE362454922200643682 /* LogoSpreader.swift */; };
 		CD84F8DA240073DD00901B63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84F8D9240073DD00901B63 /* ProfileViewController.swift */; };
 		CD87B5E323F5C0D80014DD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */; };
 		CD87B5ED23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD87B5EB23F5C0D80014DD5B /* TinkoffChat.xcdatamodeld */; };
@@ -110,6 +112,8 @@
 		CD2AC98B244DAACA0066CE22 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		CD36B971244DCFA80074D622 /* Pictures.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Pictures.storyboard; sourceTree = "<group>"; };
 		CD36B973244DDF230074D622 /* ScalingImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalingImageService.swift; sourceTree = "<group>"; };
+		CD3FBE33245491AC00643682 /* MyApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApplication.swift; sourceTree = "<group>"; };
+		CD3FBE362454922200643682 /* LogoSpreader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSpreader.swift; sourceTree = "<group>"; };
 		CD84F8D9240073DD00901B63 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CD87B5DF23F5C0D80014DD5B /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +275,25 @@
 			path = Pictures;
 			sourceTree = "<group>";
 		};
+		CD3FBE322454917E00643682 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
+				CD91471B24430EA100BB27A1 /* RootAssembly.swift */,
+				CD9147262443184200BB27A1 /* CoreAssembly.swift */,
+				CD3FBE33245491AC00643682 /* MyApplication.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CD3FBE35245491EA00643682 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				CD3FBE362454922200643682 /* LogoSpreader.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		CD87B5D623F5C0D70014DD5B = {
 			isa = PBXGroup;
 			children = (
@@ -327,10 +350,8 @@
 		CD91471A24430E6500BB27A1 /* 3. CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CD3FBE322454917E00643682 /* Application */,
 				CD2AC944244A18510066CE22 /* Networking */,
-				CD87B5E223F5C0D80014DD5B /* AppDelegate.swift */,
-				CD91471B24430EA100BB27A1 /* RootAssembly.swift */,
-				CD9147262443184200BB27A1 /* CoreAssembly.swift */,
 			);
 			path = "3. CoreLayer";
 			sourceTree = "<group>";
@@ -358,6 +379,7 @@
 		CDA431532427F21D00022A89 /* 1. PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CD3FBE35245491EA00643682 /* Animation */,
 				CD91471724424FDA00BB27A1 /* Assembly */,
 				CD91472A2443236C00BB27A1 /* Modules */,
 			);
@@ -625,10 +647,12 @@
 				CD91471F24430F4200BB27A1 /* ServicesAssembly.swift in Sources */,
 				CD9147302443461000BB27A1 /* ConversationModel.swift in Sources */,
 				CD91472C244323DC00BB27A1 /* ProfileModel.swift in Sources */,
+				CD3FBE372454922200643682 /* LogoSpreader.swift in Sources */,
 				CD23E34C2426995A00D203DD /* NewChannelViewController.swift in Sources */,
 				CD025D122407F39A00A6D502 /* ConversationListViewController.swift in Sources */,
 				CD025D3E240BD04400A6D502 /* ConversationMessageCell.swift in Sources */,
 				CD2AC94B244A192F0066CE22 /* SearchParser.swift in Sources */,
+				CD3FBE34245491AC00643682 /* MyApplication.swift in Sources */,
 				CD2AC961244A311B0066CE22 /* PictureServiceProtocols.swift in Sources */,
 				CD36B974244DDF230074D622 /* ScalingImageService.swift in Sources */,
 				CD025D3224098DCB00A6D502 /* ConfigurableView.swift in Sources */,

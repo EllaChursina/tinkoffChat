@@ -47,6 +47,10 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textMessageDidBeginEditing:" destination="k6P-b4-zr4" eventType="editingDidBegin" id="gB7-dA-hT2"/>
+                                            <action selector="textMessageDidEndEditing:" destination="k6P-b4-zr4" eventType="editingDidEnd" id="yCV-n5-ezF"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
