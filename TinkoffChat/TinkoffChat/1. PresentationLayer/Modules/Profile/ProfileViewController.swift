@@ -394,6 +394,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 // MARK: -UITextFieldDelegate
 
 extension ProfileViewController: UITextFieldDelegate {
+
     @objc func textFieldDidChange(_ textField: UITextField) {
         handleSaveButtonStyle(canSave: dataWasChanged)
     }

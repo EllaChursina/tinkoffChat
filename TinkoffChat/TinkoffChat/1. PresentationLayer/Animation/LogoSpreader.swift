@@ -48,21 +48,25 @@ class LogoSpreader {
         if timer == nil {
             self.view = touch.view
             self.window = touch.window
+            createLogo(view: view, touch: touch)
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { timer in
-                
-                if var view = self.view {
-                    guard let window = view.window else {
-                        assertionFailure()
-                        return
-                    }
-                    view = window.subviews[0]
-                    let logo = UIImageView(frame: CGRect(origin: touch.location(in: view), size: CGSize(width: 60, height: 60)))
-                    logo.image = UIImage(named: "TinLogo")
-                    self.logos?.append(logo)
-                    view.addSubview(logo)
-                    self.animateImageOpacityAndPosition(view: logo)
-                }
+                self.createLogo(view: self.view, touch: touch)
             })
+        }
+    }
+    
+    func createLogo(view: UIView?, touch: UITouch){
+        if var view = self.view {
+            guard let window = view.window else {
+                assertionFailure()
+                return
+            }
+            view = window.subviews[0]
+            let logo = UIImageView(frame: CGRect(origin: touch.location(in: view), size: CGSize(width: 60, height: 60)))
+            logo.image = UIImage(named: "TinLogo")
+            self.logos?.append(logo)
+            view.addSubview(logo)
+            self.animateImageOpacityAndPosition(view: logo)
         }
     }
     
