@@ -18,13 +18,8 @@ class ConversationListViewController: UIViewController {
     fileprivate var tableSectionTitles = ["Active", "Not Active"]
     var dataArray = [Channel](){
         didSet {
-            activeChannelsArray = dataArray.filter({ return $0.isActive == true})
-             let sortedActiveArray = activeChannelsArray.sorted(by: {$0.lastActivity > $1.lastActivity})
-            activeChannelsArray = sortedActiveArray
-            
-            notActiveChannelsArray = dataArray.filter({ return $0.isActive == false})
-            let sortedNotActiveArray = notActiveChannelsArray.sorted(by: {$0.lastActivity > $1.lastActivity})
-            notActiveChannelsArray = sortedNotActiveArray
+            activeChannelsArray = model.channelsSorter.sort(dataArray, isActive: true)
+            notActiveChannelsArray = model.channelsSorter.sort(dataArray, isActive: false)
         }
     }
     var activeChannelsArray = [Channel]()

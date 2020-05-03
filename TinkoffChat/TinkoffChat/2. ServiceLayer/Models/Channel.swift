@@ -9,7 +9,11 @@
 import Foundation
 import Firebase
 
-class Channel {
+class Channel: Equatable {
+    static func == (lhs: Channel, rhs: Channel) -> Bool {
+        return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.lastMessage == rhs.lastMessage && lhs.lastActivity == rhs.lastActivity
+    }
+    
     var identifier: String
     var name: String
     var lastMessage: String

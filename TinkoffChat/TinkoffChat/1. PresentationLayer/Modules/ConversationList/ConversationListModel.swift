@@ -13,14 +13,18 @@ protocol IConversationListModel: class {
     
     var frbService: IFRBChatService { get }
     
+    var channelsSorter: IChannelsSorter { get }
+    
 }
 
 class ConversationsListModel: IConversationListModel {
     
     var frbService: IFRBChatService
     
-    init(frbService: IFRBChatService) {
-        self.frbService = frbService
-    }
+    var channelsSorter: IChannelsSorter
     
+    init(frbService: IFRBChatService, channelsSorter: IChannelsSorter) {
+        self.frbService = frbService
+        self.channelsSorter = channelsSorter
+    }
 }

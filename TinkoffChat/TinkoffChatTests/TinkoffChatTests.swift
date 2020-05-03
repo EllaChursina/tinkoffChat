@@ -32,3 +32,46 @@ class TinkoffChatTests: XCTestCase {
     }
 
 }
+
+final class ChannelsSorterTests: XCTestCase {
+    
+    private var channelsSorter: IChannelsSorter!
+    
+    // MARK: -Lifecycle
+    
+    override func setUp() {
+        self.channelsSorter = ChannelsSorter()
+    }
+    
+    // MARK: -Tests
+    
+    func testThatChannelsSorterReturnsSortedByDate() {
+        //Given
+        let firstChannel = Channel(identifier: "1", name: "SomeChannel1", lastMessage: "SomeMessage", lastActivity: Date(timeIntervalSinceNow: -800))
+        let secondChannel = Channel(identifier: "2", name: "SomeChannel2", lastMessage: "SomeMessage", lastActivity: Date(timeIntervalSinceNow: -700))
+        let thirdChannel = Channel(identifier: "3", name: "SomeChannel3", lastMessage: "SomeMessage", lastActivity: Date(timeIntervalSinceNow: -1400))
+        
+        let expectedResult = [secondChannel, firstChannel, thirdChannel]
+        
+        let unsorted  = [firstChannel, secondChannel, thirdChannel]
+        
+        let result = channelsSorter.sort(unsorted, isActive: false)
+    
+        XCTAssertEqual(expectedResult, result)
+    }
+    
+    func testThatChannelsSorterReturnsSortedByActiveState() {
+        //Given
+        let firstChannel = Channel(identifier: "1", name: "SomeChannel1", lastMessage: "SomeMessage", lastActivity: Date(timeIntervalSinceNow: -300))
+        let secondChannel = Channel(identifier: "2", name: "SomeChannel2", lastMessage: "SomeMessage", lastActivity: Date())
+        let thirdChannel = Channel(identifier: "3", name: "SomeChannel3", lastMessage: "SomeMessage", lastActivity: Date(timeIntervalSinceNow: -700))
+        
+        let expectedResult = [secondChannel, firstChannel]
+        
+        let unsorted  = [firstChannel, secondChannel, thirdChannel]
+        
+        let result = channelsSorter.sort(unsorted, isActive: true)
+    
+        XCTAssertEqual(expectedResult, result)
+    }
+}

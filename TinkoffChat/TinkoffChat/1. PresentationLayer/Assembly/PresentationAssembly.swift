@@ -55,7 +55,7 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     private func conversationsListModel() -> IConversationListModel {
-        return ConversationsListModel(frbService: serviceAssembly.firebaseChatService)
+        return ConversationsListModel(frbService: serviceAssembly.firebaseChatService, channelsSorter: serviceAssembly.channelSorter)
     }
     
     func conversationViewController() -> ConversationViewController {
